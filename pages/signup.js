@@ -10,7 +10,7 @@ import Weight from "./components/signup/weight"
 const SignUp = () => {
   const router = useRouter();
 
-  const [signUpState, setSignUpState] = useState(3);
+  const [signUpState, setSignUpState] = useState(1);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
