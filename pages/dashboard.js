@@ -175,9 +175,11 @@ const Dashboard = () => {
                 } 
                 
             </div>
-            <button className="bg-white p-4"
+
+            {/* These buttons are for testing purposes */}
+            {/* <button className="bg-white p-4"
             onClick={() => setPostedToday(!postedToday)}
-            >change log state</button>
+            >change log state</button> */}
         </div>
     )
 }

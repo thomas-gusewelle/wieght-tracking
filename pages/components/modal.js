@@ -9,11 +9,7 @@ const Modal = ({open, onClose, children}) => {
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-stone-900 p-8 rounded-3xl">
 
             {children}
-            <button
-                        onClick={onClose}
-                            className="mt-4 text-lg text-white font-semibold bg-red-500 py-3 px-6 rounded-md focus:outline-none focus:ring-2"
-                            > Cancel
-                        </button>
+
         </div>
         </>
         
