@@ -14,7 +14,7 @@ const WeightForm = ({onClose, setPostedToday, getUserWeights}) => {
 
     return (
         <div>
-                <h3 className="text-center text-white text-3xl mb-4">Log Today's Weight</h3>
+                <h3 className="text-center text-white text-3xl mb-4">{"Log Today's Weight"}</h3>
                     <form className="flex flex-col" onSubmit={handleSubmit}>
                         <label className="text-gray-200">Weight</label>
                         <input
