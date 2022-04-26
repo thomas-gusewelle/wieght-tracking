@@ -8,13 +8,14 @@ const Weight = ({handleSubmit, signUpStateDown, currentWeight, setCurrentWeight,
     const [isValidating, setIsValidating] = useState(true);
 
     const handlePreSubmit = (e) => {
+        console.log(targetWeight);
         e.preventDefault();
-        if(currentWeight <= 0) {
+        if(currentWeight <= 0 || currentWeight === null || targetWeight === undefined) {
             setCurrentWeightError({state: true, message: "Please Enter Your Current Weight"});
         } else {
             setCurrentWeightError({state: false})
         }
-        if (targetWeight <= 0){
+        if (targetWeight <= 0 || targetWeight === null || targetWeight === undefined){
             setTargetWeightError({state: true, message: "Please Enter Your Target Weight"});
         } else {
             setTargetWeightError({state: false})

@@ -25,7 +25,6 @@ const Dashboard = () => {
     
 
     const [profile, setProfile] = useState({});
-    const [weight, setWeight] = useState();
     const [postedToday, setPostedToday] = useState(false);
 
     const [labels, setLabels] = useState([]);
@@ -176,7 +175,9 @@ const Dashboard = () => {
                 } 
                 
             </div>
-
+            <button className="bg-white p-4"
+            onClick={() => setPostedToday(!postedToday)}
+            >change log state</button>
         </div>
     )
 }
