@@ -29,7 +29,7 @@ const EmailPassword = ({ signUpStateUp, signUpStateDown, email, setEmail, passwo
 
     useEffect(() => {
         if (!isValidating && !emailError.state && !passwordError.state){
-            signUpStateUp()
+            signUpStateUp();
         }
     }, [isValidating, emailError, passwordError])
 
