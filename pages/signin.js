@@ -38,8 +38,8 @@ const SignIn = () => {
           Sign in to your account
         </h1>
 
-        <div className="flex flex-col p-6">
-          <form className="flex flex-col" onSubmit={handleSignIn}>
+        <div className="flex flex-col">
+          <form className="flex flex-col p-6" onSubmit={handleSignIn}>
             <label htmlFor="email" className="text-gray-200">
               Email
             </label>
