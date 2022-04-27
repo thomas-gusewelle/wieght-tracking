@@ -45,7 +45,7 @@ const SignUp = () => {
       ])
 
       
-      router.push('/signin')
+      router.push('/dashboard')
 
     }
   };
