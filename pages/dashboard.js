@@ -9,7 +9,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip } from 'chart.js'
 import { CircularProgress } from '@mui/material';
 
-import WeightForm from "./components/weight-form";
+import WeightForm from "./components/forms/weight-form";
 import Modal from "./components/modal";
 import Alert from "./components/alert"
 
