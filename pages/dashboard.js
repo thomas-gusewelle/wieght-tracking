@@ -7,6 +7,7 @@ import { supabase } from "../utils/supabaseClient"
 import ClipLoader from "react-spinners/ClipLoader"
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js'
+import { CircularProgress } from '@mui/material';
 
 import WeightForm from "./components/weight-form";
 import Modal from "./components/modal";
@@ -20,6 +21,8 @@ const Dashboard = () => {
 
     const [isLoadingForm, setisLoadingForm] = useState(true);
     const [isLoadingChart, setIsLoadingChart] = useState(true);
+    const [isLoadingWeight, setIsLoadingWeight] = useState(true);
+    const [isLoadingGoal, setIsLoadingGoal] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     
@@ -29,41 +32,54 @@ const Dashboard = () => {
 
     const [labels, setLabels] = useState([]);
     const [weights, setWeights] = useState([]);
+    const [lossPercentage, setLossPercentage] = useState(0);
+    const [currentWeight, setCurrentWeight] = useState(0);
+    const [targetWeight, setTargetWeight] = useState(0);
 
     useEffect(() =>  {
-        const getUserProfile = async () => {
-            if (supabase.auth.user() === null) router.push('/signin');
-            const userId = supabase.auth.user().id;
-            const user = await supabase.from('profile').select().eq('id', userId);
-            setProfile(user.data[0])   
-        }
-        const getPostedToday = async () => {
-            const mostRecentPost = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
-            mostRecentPost = mostRecentPost.data.reverse();
-            console.log(mostRecentPost)
-            const postDate = new Date(mostRecentPost[0].created_at)
-            const todayDate = new Date();
-            
-           if (postDate.getDate() === todayDate.getDate() && postDate.getMonth() === todayDate.getMonth() && postDate.getFullYear() === todayDate.getFullYear()) {
-            setPostedToday(true);
-            setisLoadingForm(false);
-           } else {
-            setPostedToday(false);
-            setisLoadingForm(false);
-           }   
-        }
-
-
-
         getUserProfile();
-        getPostedToday();
         getUserWeights();
+
+        
     }, []);
+
+    const getUserProfile = async () => {
+        if (supabase.auth.user() === null) router.push('/signin');
+        const userId = supabase.auth.user().id;
+        const user = await supabase.from('profile').select().eq('id', userId);
+        setProfile(user.data[0])  
+        
+    }
+
+    useEffect(() => {
+        if(profile != undefined){
+            setTargetWeight(profile.target_weight)
+        }
+        
+    },[profile])
+
+    const getPostedToday = async (post) => {
+        // const mostRecentPost = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
+        // mostRecentPost = mostRecentPost.data.reverse();
+        const postDate = new Date(post.created_at)
+        const todayDate = new Date();
+        
+       if (postDate.getDate() === todayDate.getDate() && postDate.getMonth() === todayDate.getMonth() && postDate.getFullYear() === todayDate.getFullYear()) {
+        setPostedToday(true);
+        setisLoadingForm(false);
+       } else {
+        setPostedToday(false);
+        setisLoadingForm(false);
+       }  
+       
+    }
 
     const getUserWeights = async () => {
         const labels = []
         const weights = []
-        const { data, error } = await supabase.from('weight').select().eq('user', supabase.auth.user().id).limit(30);
+        const { data, error } = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
+        let mostRecentPost = data.slice(-1);
+        getPostedToday(mostRecentPost);
         data.forEach(log => {
             let singlePostDate = new Date(log.created_at);
             labels.push(singlePostDate.getDate());
@@ -72,6 +88,19 @@ const Dashboard = () => {
         setLabels(labels);
         setWeights(weights);
         setIsLoadingChart(false);
+        setIsLoadingGoal(false);
+        setIsLoadingWeight(false);
+    }
+
+    useEffect(() => {
+        getUserPercentage();
+    }, [weights])
+
+    const getUserPercentage = () => {
+        const [lastWeight] = weights.slice(-1);
+        setCurrentWeight(lastWeight);
+        const userPercentage = parseInt(100 - ((profile.target_weight / lastWeight) * 100));
+        setLossPercentage(userPercentage);
     }
     
 
@@ -94,8 +123,8 @@ const Dashboard = () => {
         labels: labels,
         datasets: [
           {
-            label: '',
-            fill: false,
+            //  label: '',
+            // fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
             borderColor: '#48bb78',
@@ -114,7 +143,14 @@ const Dashboard = () => {
             pointHitRadius: 10,
             data: weights,
           }
-        ]
+        ],
+        options: {
+            plugins: {
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
       };
 
 
@@ -135,11 +171,36 @@ const Dashboard = () => {
             <div className="py-4 mx-auto">
   
                 {profile && <h1 className="text-4xl text-center text-white">Welcome back {profile.first_name}!</h1>}
-                <div className="flex gap-4 justify-center mt-6">
-                    <div className="w-48 h-12 bg-red-500"></div>
-                    <div className="w-48 h-12 bg-red-500"></div>
+                <div className="grid grid-cols-2 gap-4 justify-center mt-6 sm:flex ">
+                    <div className="min-w-[12rem] bg-stone-900 flex items-center p-2 rounded-xl justify-center text-green-500">
+                        { isLoadingWeight
+                            ? <CircularProgress color={"inherit"}/>
+                            : <h3 className="text-white text-xl">Weight: {currentWeight != undefined && currentWeight.toString()}</h3>
+                        }
+                    </div>
+                    <div className={` min-w-[12rem] flex items-center ${isLoadingGoal && 'justify-center'} py-2 px-4 rounded-xl bg-stone-900 text-green-500`}>
+                        { isLoadingGoal
+                            ? <CircularProgress color="inherit"/>
+                            :<>
+                                <h3 className="text-xl text-white">Goal: {targetWeight != 0 && targetWeight}</h3>
+                        
+                            <div className="relative w-min h-[50px] ml-auto text-green-500">
+                                <CircularProgress
+                                    variant="determinate" 
+                                    size={50} 
+                                    value={lossPercentage}
+                                    color={"inherit"} 
+                                />
+                                <p 
+                                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-sm">
+                                    {lossPercentage.toString()}%
+                                </p>
+                            </div>
+                        </>
+                        }
+                    </div>
                     <button 
-                      className="text-lg text-white font-semibold bg-green-500 py-3 px-6 rounded-md focus:outline-none "
+                      className="col-span-2 text-lg text-white font-semibold bg-green-500 py-2 px-6 rounded-md focus:outline-none "
                         onClick={handleModalOpen}
                         > Log Your Weight
                     </button>
