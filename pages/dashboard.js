@@ -44,7 +44,10 @@ const Dashboard = () => {
     }, []);
 
     const getUserProfile = async () => {
-        if (supabase.auth.user() === null) router.push('/signin');
+        if (supabase.auth.user() === null) {
+            router.push('/signin');
+            return 
+    }
         const userId = supabase.auth.user().id;
         const user = await supabase.from('profile').select().eq('id', userId);
         setProfile(user.data[0])  
@@ -76,28 +79,27 @@ const Dashboard = () => {
 
     const getUserWeights = async () => {
         const labels = []
-        const weights = []
+        const userWeights = []
         const { data, error } = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
         let mostRecentPost = data.slice(-1);
         getPostedToday(mostRecentPost);
+        
         data.forEach(log => {
             let singlePostDate = new Date(log.created_at);
             labels.push(singlePostDate.getDate());
-            weights.push(log.weight);
+            userWeights.push(log.weight);
         })
+        getUserPercentage(userWeights);
         setLabels(labels);
-        setWeights(weights);
+        setWeights(userWeights);
         setIsLoadingChart(false);
         setIsLoadingGoal(false);
         setIsLoadingWeight(false);
     }
 
-    useEffect(() => {
-        getUserPercentage();
-    }, [weights])
 
-    const getUserPercentage = () => {
-        const [lastWeight] = weights.slice(-1);
+    const getUserPercentage = (_weights) => {
+        let lastWeight = _weights.slice(-1);
         setCurrentWeight(lastWeight);
         const userPercentage = parseInt(100 - ((profile.target_weight / lastWeight) * 100));
         setLossPercentage(userPercentage);
