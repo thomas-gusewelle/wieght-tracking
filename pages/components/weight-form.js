@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 import { supabase } from "../../utils/supabaseClient";
 
-const WeightForm = ({onClose, setPostedToday, getUserWeights}) => {
-    const [weight, setWeight] = useState();
+const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeights}) => {
+    const [weight, setWeight] = useState("");
     const [weightError, setWeightError] = useState({state: false, message: ""});
     const [isValidating, setIsValidating] = useState(true);
 
@@ -15,13 +15,14 @@ const WeightForm = ({onClose, setPostedToday, getUserWeights}) => {
             setWeightError({state: false});
         }
         setIsValidating(false);
+        handleSubmit();
     }
 
     const handleSubmit = async () => {
         
         const {data, console} = await supabase.from('weight').insert([{weight: weight, user: supabase.auth.user().id}])
         setPostedToday(true);
-        onClose();
+        onClose();  
         getUserWeights();
     }
 
