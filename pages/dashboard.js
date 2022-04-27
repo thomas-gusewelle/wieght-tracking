@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient"
 
-
+import {AnimatePresence, motion} from "framer-motion"
 
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip } from 'chart.js'
@@ -12,7 +12,7 @@ import { CircularProgress } from '@mui/material';
 import WeightForm from "./components/weight-form";
 import Modal from "./components/modal";
 import Alert from "./components/alert"
-// import Test from "./components/test"
+
 
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip);
@@ -155,12 +155,14 @@ const Dashboard = () => {
     return (
         <div className="wrapper">
             
-            
+            <AnimatePresence>       
                 {showAlert && 
-                <Alert setShowAlert={setShowAlert}>
+                <Alert 
+                setShowAlert={setShowAlert}>
                     <p className="text-center">You have already logged your weight today. Come back tomorrow to keep tracking!</p>
                 </Alert>
                 }
+                </AnimatePresence>     
                
            
 
