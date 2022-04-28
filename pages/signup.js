@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from "../utils/supabaseClient";
 import EmailPassword from "./components/signup/email-password";
 
@@ -19,9 +19,14 @@ const SignUp = () => {
   const [currentWeight, setCurrentWeight] = useState();
   const [targetWeight, setTargetWeight] = useState();
 
+  useEffect(() => {
+    const user = supabase.auth.user();
+    if (user){
+      router.push('/dashboard');
+    }
+  },[])
+
   const handleSubmit = async () => {
-   
-   
    const { user, error } = await supabase.auth.signUp({
        email,
        password,

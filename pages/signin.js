@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -11,6 +11,13 @@ const SignIn = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(()  => {
+    const user = supabase.auth.user();
+    if (user) {
+      router.push("dashboard");
+    }
+  }, []);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
