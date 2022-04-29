@@ -70,7 +70,7 @@ const Dashboard = () => {
     const getUserWeights = async () => {
         const labels = []
 
-        const { data, error } = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
+        const { data, error } = await supabase.from('weight').select().eq('user_id', supabase.auth.user().id);
         
         let mostRecentPost = data.slice(-1);
         getPostedToday(mostRecentPost);
