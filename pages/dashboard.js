@@ -5,10 +5,9 @@ import { supabase } from "../utils/supabaseClient"
 
 import {AnimatePresence, motion} from "framer-motion"
 
-import { Chart, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip } from 'chart.js'
-import { CircularProgress } from '@mui/material';
 
 import WeightForm from "./components/forms/weight-form";
 import Modal from "./components/modal";
@@ -307,6 +306,9 @@ const Dashboard = () => {
             {/* These buttons are for testing purposes */}
             {/* <button className="bg-white p-4"
             onClick={() => setPostedToday(!postedToday)}
+            >change log state</button> */}
+            {/* <button className="bg-white p-4"
+            onClick={() => setShowAlert(!postedToday)}
             >change log state</button> */}
         </div>
     )

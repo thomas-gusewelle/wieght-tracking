@@ -8,7 +8,7 @@ const Alert = ({ children, setShowAlert, showAlert }) => {
 
     return (
             <motion.div 
-                 className="absolute mt-2 mx-2 left-0 sm:left-1/2 sm:-translate-x-1/2 bg-red-500 rounded-xl tranpare p-4 max-w-max mx-auto text-white"
+                 className="absolute mt-2 mx-2 left-0 sm:left-1/2 sm:-translate-x-1/2 bg-red-500 rounded-xl tranpare p-4 max-w-max sm:mx-auto text-white"
                 initial={{opacity: 0}}
                 animate={{ opacity:1}}
                 exit={{opacity: 0}}
