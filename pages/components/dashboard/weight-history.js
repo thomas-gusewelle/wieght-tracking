@@ -4,15 +4,24 @@ import { supabase } from "../../../utils/supabaseClient";
 import Modal from "../modal";
 import WeightForm from "../forms/weight-form";
 import DeleteItemConfirmaton from "../forms/delete-item-confirmation";
+import EditWeight from "../forms/edit-weight";
 
 const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
+    //States for updating an entry
+    //Weight is the entire weight object and not just the numeric value
+    const [weight, setWeight] = useState(null);
+    const [showEdit, setShowEdit] = useState(false);
+    
+    //States for deleting an entry 
     const [showDeleteConfrim, setShowDeleteConfrim] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
     const [deleteItem, setDeleteItem] = useState(false);
 
 
-    const handleEdit = (id) => {
-        const item = data.find(e => e.id === id);
+    const handleEdit = (item) => {
+        //const item = data.find(e => e.id === id);
+        setWeight(item);
+        setShowEdit(true);
         
     }
 
@@ -32,7 +41,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
             console.log(error)
         getUserWeights();
         setDeleteItemId(null);
-        onClose();
+        onDeleteClose(false);
         setIsLoading(false);
         setDeleteItem(false);
     }
@@ -44,10 +53,13 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
         }
     }, [deleteItem])
 
-    const onClose = () => {
+    const onDeleteClose = () => {
         setShowDeleteConfrim(false);
     }
 
+    const onEditClose = () => {
+        setShowEdit(false);
+    }
 
 
     if (data.length === 0){
@@ -59,13 +71,31 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
             <div className="mt-6">
 
                 {showDeleteConfrim &&
-                    <Modal open={showDeleteConfrim} onClose={onClose}>
+                    <Modal open={showDeleteConfrim} onClose={onDeleteClose}>
                         <DeleteItemConfirmaton
-                        onClose={onClose}
+                        onClose={onDeleteClose}
                         setDeleteItem={setDeleteItem}>
 
                         </DeleteItemConfirmaton>
                     </Modal>
+                }
+
+                {showEdit && 
+                    <Modal
+                        open={showEdit}
+                        onClose={onEditClose}>
+
+                        <EditWeight
+                            onClose={onEditClose}
+                            weightObject={weight}
+                            getUserWeights={getUserWeights}
+                            setIsLoading={setIsLoading}
+                        />
+                    </Modal>
+                        
+
+                        
+                    
                 }
 
                 <h1 className="text-center text-white text-xl">History</h1>
@@ -98,7 +128,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
                                 <td>
                                     <button 
                                     className="bg-green-500 px-2 py-1 rounded-xl min-w-[4rem]"
-                                    onClick={() => handleEdit(data.id)}>
+                                    onClick={() => handleEdit(data)}>
                                     Edit
                                     </button>
                                 </td>

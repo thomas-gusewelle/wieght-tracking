@@ -3,19 +3,19 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../../utils/supabaseClient";
 
 const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeights}) => {
-    const [weight, setWeight] = useState("");
+    const [weight, setWeight] = useState(null);
     const [weightError, setWeightError] = useState({state: false, message: ""});
     const [isValidating, setIsValidating] = useState(true);
 
     const handlePreSubmit = async (e)  => {
         e.preventDefault();
-        if (weight === 0 || weight === undefined || weight === null){
+        if (weight == 0 || weight === undefined || weight === null){
             setWeightError({state: true, message: "Please Enter Your Weight"});
         } else {
             setWeightError({state: false});
         }
         setIsValidating(false);
-        handleSubmit();
+        
     }
 
     const handleSubmit = async () => {
@@ -24,10 +24,11 @@ const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeight
         setPostedToday(true);
         onClose();  
         getUserWeights();
+        
     }
 
     useEffect( () => {
-        if (!weightError && !isValidating){
+        if (!weightError.state && !isValidating){
              handleSubmit();
         }
         
