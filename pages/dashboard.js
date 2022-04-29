@@ -5,7 +5,8 @@ import { supabase } from "../utils/supabaseClient"
 
 import {AnimatePresence, motion} from "framer-motion"
 
-import { Line } from 'react-chartjs-2';
+import { Chart, Line } from 'react-chartjs-2';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip } from 'chart.js'
 import { CircularProgress } from '@mui/material';
 
@@ -15,7 +16,8 @@ import Alert from "./components/alert"
 
 
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip);
+ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, annotationPlugin);
+
 
 const Dashboard = () => {
     const router = useRouter();
@@ -31,11 +33,14 @@ const Dashboard = () => {
     const [profile, setProfile] = useState({});
     const [postedToday, setPostedToday] = useState(false);
 
+    const [showTargetLine, setShowTargetLine] = useState(false);
+
     const [labels, setLabels] = useState([]);
     const [weights, setWeights] = useState([]);
     const [lossPercentage, setLossPercentage] = useState(0);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [targetWeight, setTargetWeight] = useState(0);
+    const [numberOfWeightDays, setNumberOfWeightDays] = useState(1);
 
     const userWeights = [];
 
@@ -69,6 +74,7 @@ const Dashboard = () => {
         const labels = []
 
         const { data, error } = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
+        
         let mostRecentPost = data.slice(-1);
         getPostedToday(mostRecentPost);
         
@@ -77,7 +83,11 @@ const Dashboard = () => {
             labels.push(singlePostDate.getDate());
             userWeights.push(log.weight);
         })
+        
         getUserPercentage(userWeights);
+        getDaysPast(data);
+
+
         setLabels(labels);
         setWeights(userWeights);
         setIsLoadingChart(false);
@@ -97,6 +107,19 @@ const Dashboard = () => {
        
     }
 
+    const getDaysPast = (_userWeights) => {
+        const firstPost = new Date(_userWeights[0].created_at);
+        const [lastPost] = _userWeights.slice(-1)
+        lastPost = new Date(lastPost.created_at);
+
+        const firstDate = new Date(firstPost.getFullYear(), firstPost.getMonth(), firstPost.getDate());
+        const lastDate = new Date(lastPost.getFullYear(), lastPost.getMonth(), lastPost.getDate());
+
+        const differenceInTime = lastDate - firstDate;
+        const numberOfDays = differenceInTime / (1000 * 3600 * 24);
+        
+        setNumberOfWeightDays(numberOfDays);
+    }
 
     const getUserPercentage = (_weights) => {
         let [lastWeight] = _weights.slice(-1);
@@ -122,6 +145,8 @@ const Dashboard = () => {
         
     }
 
+    //const targetWeightArrat = 
+
     const data = {
         labels: labels,
         datasets: [
@@ -145,7 +170,27 @@ const Dashboard = () => {
             pointRadius: 5,
             pointHitRadius: 10,
             data: weights,
-          }
+          },
+        //   {
+        //       label: "Target",
+        //       lineTension: 0.1,
+        //       backgroundColor: 'rgba(75,192,192,0.4)',
+        //       borderColor: '#48bb78',
+        //       borderCapStyle: 'butt',
+        //       borderDash: [],
+        //       borderDashOffset: 0.0,
+        //       borderJoinStyle: 'miter',
+        //       pointBorderColor: 'rgba(75,192,192,1)',
+        //       pointBackgroundColor: '#48bb78',
+        //       pointBorderWidth: 1,
+        //       pointHoverRadius: 5,
+        //       pointHoverBackgroundColor: '#48bb78',
+        //       pointHoverBorderColor: 'rgba(220,220,220,1)',
+        //       pointHoverBorderWidth: 2,
+        //       pointRadius: 5,
+        //       pointHitRadius: 10,
+        //       data: [targetWeight]
+        //   },
         ],
 
       };
@@ -227,7 +272,7 @@ const Dashboard = () => {
                 </div>
                 : <div className="w-full w-min-[16rem] sm:mt-4">
                 {weights.length > 0 
-                    ? <h2 className="text-white text-center">Your weight over the past {weights.length} {weights.length > 1 ? <span>days</span> : <span>day</span>
+                    ? <h2 className="text-white text-center">Your weight over the past {numberOfWeightDays} {weights.length > 1 ? <span>days</span> : <span>day</span>
                     }</h2>
                     : <h2 className="text-white text-center">Please submit your weight to begin tracking</h2>
                 }
@@ -240,6 +285,29 @@ const Dashboard = () => {
                         {
                         responsive: true, 
                         maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                
+                            }
+                        },
+                        plugins: {
+                            // annotation: {
+                            //     annotations: [
+                            //         {
+                            //             type: "line",
+                            //             yMax:targetWeight,
+                            //             yMin:targetWeight, 
+                            //             borderColor: "red",
+                            //             label: {
+                            //                 enabled: true,
+                            //                 content: "Target Weight"
+                            //             }
+                                            
+                            //         }
+                            //     ]
+                            // }
+                        },
+
                         }
                         }>
 
