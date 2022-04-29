@@ -13,6 +13,7 @@ import WeightForm from "./components/forms/weight-form";
 import Modal from "./components/modal";
 import Alert from "./components/alert"
 import LoadingScreen from "./components/loading-screen";
+import WeightHistory from "./components/dashboard/weight-history";
 
 
 
@@ -29,8 +30,9 @@ const Dashboard = () => {
 
     const [profile, setProfile] = useState({});
     const [postedToday, setPostedToday] = useState(false);
+    const [userData, setUserData] = useState([]);
 
-    const [showTargetLine, setShowTargetLine] = useState(false);
+    //const [showTargetLine, setShowTargetLine] = useState(false);
 
     const [labels, setLabels] = useState([]);
     const [weights, setWeights] = useState([]);
@@ -70,8 +72,8 @@ const Dashboard = () => {
     const getUserWeights = async () => {
         const labels = []
 
-        const { data, error } = await supabase.from('weight').select().eq('user', supabase.auth.user().id);
-        
+        const { data, error } = await supabase.from('weight').select().eq('user_id', supabase.auth.user().id);
+        setUserData(data);
         let mostRecentPost = data.slice(-1);
         getPostedToday(mostRecentPost);
         
@@ -89,6 +91,7 @@ const Dashboard = () => {
         setWeights(userWeights);
 
         setIsLoading(false);
+        
 
     }
 
@@ -258,7 +261,7 @@ const Dashboard = () => {
                     <h2 
                         className="text-white text-center">
                         Your weight over the past {numberOfWeightDays} 
-                        {weights.length > 1 ? <span>days</span> : <span>day</span>}
+                        {weights.length > 1 ? <span> days</span> : <span> day</span>}
                     </h2>
                     
                 
@@ -310,6 +313,12 @@ const Dashboard = () => {
             {/* <button className="bg-white p-4"
             onClick={() => setShowAlert(!postedToday)}
             >change log state</button> */}
+
+            {<WeightHistory
+                data={userData}
+                getUserWeights={getUserWeights}
+                setIsLoading={setIsLoading}
+            />}
         </div>
     )
 }

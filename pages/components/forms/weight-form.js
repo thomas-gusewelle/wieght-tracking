@@ -20,7 +20,7 @@ const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeight
 
     const handleSubmit = async () => {
         
-        const {data, console} = await supabase.from('weight').insert([{weight: weight, user: supabase.auth.user().id}])
+        const {data, console} = await supabase.from('weight').insert([{weight: weight, user_id: supabase.auth.user().id}])
         setPostedToday(true);
         onClose();  
         getUserWeights();
