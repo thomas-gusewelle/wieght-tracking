@@ -214,7 +214,7 @@ const Dashboard = () => {
             
             <div className="py-4 mx-auto">
   
-                {profile && <h1 className="text-4xl text-center text-white">Welcome back {profile.first_name}!</h1>}
+                {profile && <h1 className="text-4xl text-center text-white">{weights.length > 1 ? "Welcome back" : "Welcome to Weight Tracker"} {profile.first_name}!</h1>}
                 <div className="grid grid-cols-2 gap-4 justify-center mt-6 sm:flex ">
                     <div className="min-w-[10rem] bg-stone-900 flex items-center p-2 rounded-xl justify-center text-green-500">
                         { isLoadingWeight
