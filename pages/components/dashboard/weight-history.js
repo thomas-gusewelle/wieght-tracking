@@ -98,39 +98,44 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
                     
                 }
 
-                <h1 className="text-center text-white text-xl">History</h1>
-                <table className="table-auto mx-auto border- text-white">
+                {/* <h1 className="text-center text-white text-3xl mb-8">History</h1> */}
+                <div className="container mx-auto">
+                <table className="table-auto w-full max-w-screen-lg mx-auto text-white">
                     <thead>
                         <tr>
                            <th>Date</th>
+                           <th>Time</th>
                            <th>Weight</th> 
-                           <th></th>
                         </tr>
                     </thead>
                     <tbody className="">
                         {data.map((data) => {
-                            var unformatedDate = new Date(data.created_at);
+                            const unformatedDate = new Date(data.created_at);
                             const formatedDated = unformatedDate.toLocaleDateString(undefined, {day: 'numeric', month: "long", year: "numeric"})
-                            
+                            const formatedTime = unformatedDate.toLocaleTimeString(undefined, {hour: "numeric", minute: "numeric"})
                             
                             
                             return (
                                 <tr>
-                                <td className="p-4">{formatedDated}</td>
+                                <td className=" text-center p-4">{formatedDated}</td>
+                                <td className="text-center px-4">{formatedTime}</td>
                                 <td className="text-center px-4">{data.weight}</td>
                                 <td>
-                                    <button 
-                                    className="bg-red-500 px-2 py-1 mx-2 rounded-xl min-w-[4rem]"
-                                    onClick={() => deleteConfirmation(data.id)}>
-                                    Delete
-                                    </button>
-                                </td>
-                                <td>
-                                    <button 
-                                    className="bg-green-500 px-2 py-1 rounded-xl min-w-[4rem]"
-                                    onClick={() => handleEdit(data)}>
-                                    Edit
-                                    </button>
+                                    <div className="flex justify-center">
+                                        <button 
+                                        className="bg-red-500 px-2 py-1 mx-2 rounded-xl min-w-[4rem]"
+                                        onClick={() => deleteConfirmation(data.id)}>
+                                        Delete
+                                        </button>
+                                    
+                                    
+                                        <button 
+                                        className="bg-green-500 px-2 py-1 rounded-xl min-w-[4rem]"
+                                        onClick={() => handleEdit(data)}>
+                                        Edit
+                                        </button>
+                                    </div>
+
                                 </td>
                             </tr>
                         
@@ -139,6 +144,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
                         })}
                     </tbody>
                 </table>
+                </div>
             </div>
         )
     }

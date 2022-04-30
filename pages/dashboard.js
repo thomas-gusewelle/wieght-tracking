@@ -314,11 +314,7 @@ const Dashboard = () => {
             onClick={() => setShowAlert(!postedToday)}
             >change log state</button> */}
 
-            {/* {<WeightHistory
-                data={userData}
-                getUserWeights={getUserWeights}
-                setIsLoading={setIsLoading}
-            />} */}
+
         </div>
     )
 }
