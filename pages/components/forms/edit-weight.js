@@ -1,30 +1,37 @@
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import { supabase } from "../../../utils/supabaseClient";
 
-const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeights}) => {
-    const [weight, setWeight] = useState(null);
+const EditWeight = ({onClose, weightObject, getUserWeights, setIsLoading}) => {
+    const [weight, setWeight] = useState(0);
     const [weightError, setWeightError] = useState({state: false, message: ""});
     const [isValidating, setIsValidating] = useState(true);
 
+    useEffect(() => {
+        setWeight(weightObject.weight);
+    },[])
+
     const handlePreSubmit = async (e)  => {
         e.preventDefault();
+        console.log(weight);
         if (weight == 0 || weight === undefined || weight === null){
             setWeightError({state: true, message: "Please Enter Your Weight"});
         } else {
             setWeightError({state: false});
         }
         setIsValidating(false);
-        
+       
     }
 
     const handleSubmit = async () => {
-        
-        const {data, console} = await supabase.from('weight').insert([{weight: weight, user_id: supabase.auth.user().id}])
-        setPostedToday(true);
+        setIsLoading(true);
+        const {data, error} = await supabase
+        .from('weight')
+        .update({weight: weight})
+        .eq('id', weightObject.id)
+        console.log(error);
         onClose();  
         getUserWeights();
-        
+        setIsLoading(false);
     }
 
     useEffect( () => {
@@ -36,7 +43,7 @@ const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeight
 
     return (
         <div>
-                <h3 className="text-center text-white text-3xl mb-4">{"Log Today's Weight"}</h3>
+                <h3 className="text-center text-white text-3xl mb-4">{"Update Your Weight"}</h3>
                     <form className="flex flex-col" onSubmit={handlePreSubmit}>
                         <label className="text-gray-200">Weight</label>
                         <input
@@ -64,4 +71,5 @@ const WeightForm = ({onClose, setPostedToday, getUserWeights, weights, setWeight
     )
 }
 
-export default WeightForm
+
+export default EditWeight

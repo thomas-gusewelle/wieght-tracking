@@ -26,9 +26,8 @@ async function logout() {
             <div className="h-full px-6 flex items-center justify-between">
                 <h1 className="text-white text-3xl">Weight Tracker</h1>
                 <div className="flex gap-6 items-center text-white">
-                {/* <Link href='/dashboard'>Home</Link>
-                <Link href='/dashboard'>History</Link>
-                <Link href='/dashboard'>Home</Link> */}
+                <Link href='/dashboard'>Home</Link>
+                <Link href='/history'>History</Link>
                  <button onClick={logout} className="bg-green-500 px-2 py-1 rounded-md focus:outline-none focus:ring-2">Logout</button>
                 {/* <button className="bg-green-500 px-2 py-1 rounded-md focus:outline-none focus:ring-2">Login</button> */}
                 
