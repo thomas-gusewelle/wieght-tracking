@@ -100,12 +100,13 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
 
                 {/* <h1 className="text-center text-white text-3xl mb-8">History</h1> */}
                 <div className="container mx-auto">
-                <table className="table-auto w-full max-w-screen-lg mx-auto text-white">
+                <table className="table-auto w-full max-w-screen-lg mx-auto border-collapse border border-stone-700 text-white">
                     <thead>
                         <tr>
-                           <th>Date</th>
-                           <th>Time</th>
-                           <th>Weight</th> 
+                           <th className="border border-stone-700">Date</th>
+                           <th className="border border-stone-700">Time</th>
+                           <th className="border border-stone-700">Weight</th> 
+                           <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody className="">
@@ -117,16 +118,16 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
                             
                             return (
                                 <tr>
-                                <td className=" text-center p-4">{formatedDated}</td>
-                                <td className="text-center px-4">{formatedTime}</td>
-                                <td className="text-center px-4">{data.weight}</td>
-                                <td>
+                                <td className=" text-center p-4 border border-stone-700">{formatedDated}</td>
+                                <td className="text-center px-4 border border-stone-700">{formatedTime}</td>
+                                <td className="text-center px-4 border border-stone-700">{data.weight}</td>
+                                <td className="border border-stone-700">
                                     <div className="flex justify-center">
-                                        <button 
+                                        {/* <button 
                                         className="bg-red-500 px-2 py-1 mx-2 rounded-xl min-w-[4rem]"
                                         onClick={() => deleteConfirmation(data.id)}>
                                         Delete
-                                        </button>
+                                        </button> */}
                                     
                                     
                                         <button 
