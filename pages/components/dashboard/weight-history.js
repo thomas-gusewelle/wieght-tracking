@@ -5,6 +5,7 @@ import Modal from "../modal";
 import WeightForm from "../forms/weight-form";
 import DeleteItemConfirmaton from "../forms/delete-item-confirmation";
 import EditWeight from "../forms/edit-weight";
+import { CircularProgress } from "@mui/material";
 
 const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
     //States for updating an entry
@@ -61,12 +62,6 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
         setShowEdit(false);
     }
 
-
-    if (data.length === 0){
-        return (
-            <div></div>
-        )
-    } else {
         return (
             <div className="mt-6">
 
@@ -151,7 +146,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
     }
 
 
-}
+
 
 export default WeightHistory
 
