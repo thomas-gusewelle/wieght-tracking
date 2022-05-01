@@ -117,7 +117,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
                             
                             
                             return (
-                                <tr>
+                                <tr key={data.id}>
                                 <td className=" text-center p-4 border border-stone-700">{formatedDated}</td>
                                 <td className="text-center px-4 border border-stone-700">{formatedTime}</td>
                                 <td className="text-center px-4 border border-stone-700">{data.weight}</td>
