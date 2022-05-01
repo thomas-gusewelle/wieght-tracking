@@ -62,6 +62,9 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
         setShowEdit(false);
     }
 
+    if (data == undefined) {
+        <div></div>
+    } else {
         return (
             <div className="mt-6">
 
@@ -144,6 +147,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
             </div>
         )
     }
+}
 
 
 
