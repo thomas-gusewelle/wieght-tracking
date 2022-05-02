@@ -120,7 +120,7 @@ const WeightHistory = ({data, getUserWeights, setIsLoading}) => {
                                 <td className="text-center px-4 border border-stone-700">{formatedTime}</td>
                                 <td className="text-center px-4 border border-stone-700">{data.weight}</td>
                                 <td className="border border-stone-700">
-                                    <div className="flex justify-center">
+                                    <div className="flex justify-center px-2">
                                         {/* <button 
                                         className="bg-red-500 px-2 py-1 mx-2 rounded-xl min-w-[4rem]"
                                         onClick={() => deleteConfirmation(data.id)}>
