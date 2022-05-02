@@ -35,7 +35,7 @@ async function logout() {
                     </div>
                 </Link>
                 
-                <div className={`${!showMobileNav ? "translate-x-full" : "translate-x-0"} absolute top-16 right-0 h-screen w-1/3 flex flex-col items-center px-6 gap-4 pt-8 bg-stone-900 text-white transition-all duration-75 ease-in-out md:flex md:items-center md:gap-6 md:static md:flex-row md:h-auto md:w-auto md:pt-0 md:translate-x-0`}>
+                <div className={`${!showMobileNav ? "translate-x-full" : "translate-x-0"} absolute top-16 right-0 h-screen w-2/3 flex flex-col items-center px-6 gap-4 pt-8 bg-stone-900 text-white transition-all duration-75 ease-in-out md:flex md:items-center md:gap-6 md:static md:flex-row md:h-auto md:w-auto md:pt-0 md:translate-x-0`}>
                 <Link href='/dashboard'><a className="hover:text-green-500 cursor-pointer">Home</a></Link>
                 <Link href='/history'><a className="hover:text-green-500 cursor-pointer">History</a></Link>
                  <button onClick={logout} className="bg-green-500 px-2 py-1 rounded-md focus:outline-none focus:ring-2 hover:bg-green-600">Logout</button>  
