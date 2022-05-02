@@ -8,26 +8,17 @@
   html {
     font-family: 'Roboto', sans-serif;
   }
+  body {
+    @apply bg-stone-800
+  }
 }
 
 @layer components{
     .wrapper{
-        @apply bg-stone-800 min-h-screen max-h-full py-16 px-4;
+        @apply py-16 px-4;
     }
 
 }
 
-.red-alert-enter {
-    opacity: 0;
-  }
-  .red-alert-enter-active {
-    opacity: 1;
-    transition: opacity 200ms;
-  }
-  .red-alert-exit {
-    opacity: 1;
-  }
-  .red-alert-exit-active {
-    opacity: 0;
-    transition: opacity 200ms;
-  }
+.cls-1{fill: #22c55e;}
+.cls-2{fill: #292524;}
