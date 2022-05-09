@@ -1,5 +1,4 @@
 import { useState } from "react"
-import styles from './testimonal-slider.module.css'
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion"
 import { display } from "@mui/system"
 
@@ -24,16 +23,16 @@ export default TestimonalSlider
 const SliderBody = ({sliderSwitch}) => {
 
     return (
-        <div className="relative">
+        <div className="overflow-hidden">
         <LayoutGroup>
            <AnimatePresence exitBeforeEnter={true}>
            { sliderSwitch === 1 && 
             <motion.div 
                     key={1}
-                    initial={{x: -1000, opacity:0, display: 'static'}}
+                    initial={{x: -500, opacity:0, display: 'static'}}
                     animate={{x:0, opacity:1, display: 'static'}}
                     transition={{duration: .2}}
-                    exit={{x:1000, }}
+                    exit={{x:500, opacity:0 }}
                     
                     className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus ipsum at nunc placerat lacinia. Vestibulum suscipit purus purus, eu egestas ex laoreet et.</p>
@@ -43,10 +42,10 @@ const SliderBody = ({sliderSwitch}) => {
            { sliderSwitch === 2 && 
             <motion.div 
                     key={2}
-                    initial={{x: -1000, opacity:0, display: 'static'}}
-                    animate={{x:0, opacity:1, animationDelay: .5, display: 'static'}}
+                    initial={{x: -500, opacity:0, display: 'static'}}
+                    animate={{x:0, opacity:1, display: 'static'}}
                     transition={{duration: .2}}
-                    exit={{x:1000,}}
+                    exit={{x:500, opacity:0 }}
                     
                     className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus ipsum at nunc placerat lacinia. Vestibulum suscipit purus purus, eu egestas ex laoreet et.</p>
@@ -54,11 +53,12 @@ const SliderBody = ({sliderSwitch}) => {
                 </motion.div>
            }           
            { sliderSwitch === 3 && 
-            <motion.div 
-                    initial={{x: -1000, opacity:0, display: 'static'}}
+            <motion.div
+                    key={3} 
+                    initial={{x: -500, opacity:0, display: 'static'}}
                     animate={{x:0, opacity:1, display: 'static'}}
                     transition={{duration: .2}}
-                    exit={{x:10000,}}
+                    exit={{x:500, opacity:0 }}
                     
                     className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus ipsum at nunc placerat lacinia. Vestibulum suscipit purus purus, eu egestas ex laoreet et.</p>
