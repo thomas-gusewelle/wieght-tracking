@@ -21,6 +21,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
     <Head>
+      <meta name="keywords" content="weightloss, weight, tracking, free, goals, stories"></meta>
+      <meta name='description' content='Lossize. Simple and easy weight tracking.'></meta>
       <link rel='shortcut icon' href='images/Asset 2.png'></link>
     </Head>
 

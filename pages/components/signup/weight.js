@@ -1,7 +1,10 @@
 import Link from "next/link"
 import { useState, useEffect } from "react" 
 
-const Weight = ({handleSubmit, signUpStateDown, currentWeight, setCurrentWeight, targetWeight, setTargetWeight}) => {
+import { Switch } from "@mui/material"
+import WeightTypeSwitch from "../switches/weight-type-switch"
+
+const Weight = ({handleSubmit, signUpStateDown, currentWeight, setCurrentWeight, targetWeight, setTargetWeight, setWeightType}) => {
     
     const [currentWeightError, setCurrentWeightError] = useState({state: false, message: ""})
     const [targetWeightError, setTargetWeightError] = useState({state: false, message: ""})
@@ -62,6 +65,10 @@ const Weight = ({handleSubmit, signUpStateDown, currentWeight, setCurrentWeight,
                 />
                 <span className="text-red-500">{targetWeightError.state && targetWeightError.message}</span>
 
+                <div className="flex justify-center items-center mt-2">
+                  <WeightTypeSwitch setWeightType={setWeightType}/>
+                </div>
+                
                 <div className="grid grid-cols-2 gap-2">
                     <button
                         className="mt-10 text-lg text-white font-semibold bg-stone-500 py-3 px-6 rounded-md focus:outline-none focus:ring-2 hover:bg-stone-600"

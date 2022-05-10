@@ -18,6 +18,11 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [currentWeight, setCurrentWeight] = useState();
   const [targetWeight, setTargetWeight] = useState();
+  const [weightType, setWeightType] = useState('lbs');
+
+  useEffect(() =>{
+    console.log(weightType)
+  },[weightType])
 
   useEffect(() => {
     const user = supabase.auth.user();
@@ -40,7 +45,7 @@ const SignUp = () => {
    const setProfile = await supabase
     .from('profile')
     .insert([
-      { id: user.id, first_name: firstName, last_name: lastName, target_weight: targetWeight }
+      { id: user.id, first_name: firstName, last_name: lastName, target_weight: targetWeight, weight_type: weightType }
     ])
 
     const setFirstWeight = await supabase
@@ -106,6 +111,7 @@ const SignUp = () => {
                   setCurrentWeight={setCurrentWeight}
                   targetWeight={targetWeight}
                   setTargetWeight={setTargetWeight}
+                  setWeightType={setWeightType}
                 />
               </div>
             );

@@ -23,7 +23,7 @@ useEffect(() => {
 async function logout() {
     setShowMobileNav(false);
     await supabase.auth.signOut();
-    router.push('/signin');
+    router.push('/');
 } 
 
     return(
