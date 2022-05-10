@@ -83,10 +83,9 @@ const Dashboard = () => {
       .from("weight")
       .select()
       .eq("user_id", supabase.auth.user().id);
-    console.log(data);
 
     data = sortByDate(data);
-    console.log(data);
+
     setUserData(data);
     let mostRecentPost = data.slice(-1);
     getPostedToday(mostRecentPost);
