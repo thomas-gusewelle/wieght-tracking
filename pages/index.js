@@ -5,12 +5,13 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
 
-import { AiOutlineMenu, AiOutlineLineChart } from "react-icons/ai";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineLineChart } from "react-icons/ai";
+import { FiChevronDown } from "react-icons/fi";
 import { GiStairsGoal } from "react-icons/gi";
-import { FaWeight } from "react-icons/fa";
+
 import { IoScale } from "react-icons/io5";
 import TestimonalSlider from "./components/index/testimonal-slider";
+import Accordian from "./components/accordian";
 
 const Index = () => {
   const router = useRouter();
@@ -68,7 +69,7 @@ const Index = () => {
       </nav>
 
       <div className="pt-16 text-white">
-        <div className="relative py-12 px-4 flex flex-col items-center gap-6 overflow-hidden lg:flex-row-reverse lg:justify-center">
+        <div className="relative py-12 px-4 flex flex-col items-center gap-6 overflow-hidden lg:flex-row-reverse lg:justify-center md:py-24">
           <div className="flex flex-col items-center justify-center gap-1 z-10 pb-4 max-w-prose">
             <h1 className="text-5xl text-center">
               Simple and Easy Weight Tracking
@@ -77,7 +78,7 @@ const Index = () => {
               Visually track your weight loss journey
             </h3>
             <Link href={"/signup"}>
-              <button className="mt-4 px-2 py-4 rounded-xl shadow-lg bg-green-500 hover:-translate-y-1 hover:bg-green-600 transition-all duration-200 ease-in-out">
+              <button className="mt-4 px-2 py-4 rounded-xl shadow-xl bg-green-500 hover:-translate-y-1 hover:bg-green-600 transition-all duration-200 ease-in-out">
                 Sign Up for Free
               </button>
             </Link>
@@ -131,27 +132,78 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="pt-6">
+        <div className="pt-12 pb-6">
           <h2 className="text-center text-3xl">Lossize Stories</h2>
           <TestimonalSlider />
         </div>
       </div>
 
+      <div className="bg-stone-900">
+        <div className="container mx-auto px-6 py-6 text-white md:px-24">
+          <h3 className="text-center text-3xl pb-6">
+            Frequently Asked Questions
+          </h3>
+          <Accordian
+            title={"How much does Lossize cost?"}
+            body={
+              "Lossize is actually a completely free to use and open source program!"
+            }
+          />
+          <Accordian
+            title={"How does Lossize make money then?"}
+            body={
+              "Lossize currently only makes money from user donations. If you would like to contribute to Lossize feel free to do so using the button at the bottom of the page."
+            }
+          />
+          <Accordian
+            title={"What about my data?"}
+            body={
+              "Lossize is proud to say that all of our user data is safe, secure, and will never be used for anything but your experience in Lossize! Feel free to reach out to us via email at contact@gkwmedia.com"
+            }
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-center py-12 text-white">
+        <h3 className="text-3xl pb-4">Get Started Today!</h3>
+        <Link href={"/signup"}>
+          <button className="px-2 py-4 bg-green-500 rounded-xl">
+            Sign Up for Free
+          </button>
+        </Link>
+      </div>
+
       <footer>
-        <div className="h-24 flex justify-around items-center text-white bg-stone-900">
-          <div>
+        <div className=" flex justify- items-center pb-6 text-white bg-stone-800">
+          <div className="mx-auto flex flex-col justify-center">
             <Link onClick={() => setShowMobileNav(false)} href={"/"}>
               <div className="flex items-center gap-2 hover:cursor-pointer">
                 <img className="h-10" src="images/Asset 2.png"></img>
                 <h1 className="text-white text-3xl font-light">Lossize</h1>
               </div>
             </Link>
+            <p className="pt-4">&copy; 2022 | GKW Media</p>
+
+            <form
+              className="mx-auto"
+              action="https://www.paypal.com/donate"
+              method="post"
+              target="_blank"
+            >
+              <input
+                type="hidden"
+                name="hosted_button_id"
+                value="6CPZ8SGGKXBJ4"
+              />
+
+              <button
+                type="submit"
+                className="mx-auto w-min px-2 py-1 rounded-xl mt-2 bg-stone-900"
+              >
+                Donate
+              </button>
+            </form>
           </div>
-          <Link href={"/signup"}>
-            <button className="px-2 py-4 bg-green-500 rounded-xl">
-              Sign Up for Free
-            </button>
-          </Link>
         </div>
       </footer>
     </>

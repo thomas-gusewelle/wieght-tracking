@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 
 import WeightHistory from "./components/dashboard/weight-history";
 import { CircularProgress } from "@mui/material";
-import { data } from "autoprefixer";
 
 const History = () => {
   const router = useRouter();
