@@ -100,7 +100,7 @@ const Index = () => {
           </svg>
         </div>
 
-        <div className="bg-stone-900">
+        <div className="">
           <div className="container mx-auto py-12 flex flex-col items-center gap-3">
             <h2 className="text-3xl">Tracking Made Simple</h2>
             <div className="flex flex-col gap-4 items-center sm:flex-row">
@@ -132,13 +132,13 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="pt-12 pb-6">
+        <div className="pt-12 pb-6 bg-stone-900">
           <h2 className="text-center text-3xl">Lossize Stories</h2>
           <TestimonalSlider />
         </div>
       </div>
 
-      <div className="bg-stone-900">
+      <div className="">
         <div className="container mx-auto px-6 py-6 text-white md:px-24">
           <h3 className="text-center text-3xl pb-6">
             Frequently Asked Questions
@@ -150,7 +150,7 @@ const Index = () => {
             }
           />
           <Accordian
-            title={"How does Lossize make money then?"}
+            title={"How does Lossize make money?"}
             body={
               "Lossize currently only makes money from user donations. If you would like to contribute to Lossize feel free to do so using the button at the bottom of the page."
             }
@@ -164,7 +164,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center py-12 text-white">
+      <div className="flex flex-col items-center justify-center py-12 text-white bg-stone-900">
         <h3 className="text-3xl pb-4">Get Started Today!</h3>
         <Link href={"/signup"}>
           <button className="px-2 py-4 bg-green-500 rounded-xl">
@@ -174,7 +174,7 @@ const Index = () => {
       </div>
 
       <footer>
-        <div className=" flex justify- items-center pb-6 text-white bg-stone-800">
+        <div className=" flex justify- items-center pb-6 text-white bg-stone-900">
           <div className="mx-auto flex flex-col justify-center">
             <Link onClick={() => setShowMobileNav(false)} href={"/"}>
               <div className="flex items-center gap-2 hover:cursor-pointer">
