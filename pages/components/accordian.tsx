@@ -10,7 +10,6 @@ const Accordian = ({ title, body }) => {
   };
 
   useEffect(() => {
-    console.log(accordianBody.current);
     let aB = accordianBody.current;
     if (!isOpen) {
       aB.style.maxHeight = "0px";
