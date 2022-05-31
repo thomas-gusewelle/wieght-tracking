@@ -15,6 +15,7 @@ const WeightContextProvider = (props: any) => {
   const [profile, setProfile] = useState<Profile>(undefined);
   const [postedToday, setPostedToday] = useState(false);
   const [userData, setUserData] = useState([]);
+  const [reversedUserData, setReversedUserData] = useState([]);
 
   const [labels, setLabels] = useState([]);
   const [weights, setWeights] = useState([]);
@@ -36,6 +37,7 @@ const WeightContextProvider = (props: any) => {
         setProfile(undefined);
         setPostedToday(false);
         setUserData([]);
+        setReversedUserData([]);
         setLabels([]);
         setWeights([]);
         setCurrentWeight(0);
@@ -77,7 +79,6 @@ const WeightContextProvider = (props: any) => {
       .eq("user_id", supabase.auth.user().id);
 
     data = sortByDate(data);
-
     setUserData(data);
     let mostRecentPost = data.slice(-1);
     getPostedToday(mostRecentPost);
@@ -87,6 +88,9 @@ const WeightContextProvider = (props: any) => {
       labels.push(singlePostDate.getDate());
       userWeights.push(log.weight);
     });
+
+    let reversedData = data.reverse();
+    setReversedUserData(reversedData);
 
     getUserPercentage(userWeights);
     getDaysPast(data);
@@ -142,7 +146,7 @@ const WeightContextProvider = (props: any) => {
     setNumberOfWeightDays(numberOfDays);
   };
 
-  const getUserPercentage = (_weights) => {
+  const getUserPercentage = (_weights: number[]) => {
     let [lastWeight] = _weights.slice(-1);
 
     const userPercentage = 100 - (profile.target_weight / lastWeight) * 100;
@@ -154,6 +158,8 @@ const WeightContextProvider = (props: any) => {
     <WeightContext.Provider
       value={{
         profile,
+        userData,
+        reversedUserData,
         postedToday,
         setPostedToday,
         labels,
@@ -163,6 +169,7 @@ const WeightContextProvider = (props: any) => {
         targetWeight,
         numberOfWeightDays,
         isLoading,
+        setIsLoading,
       }}>
       {props.children}
     </WeightContext.Provider>

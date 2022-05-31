@@ -105,11 +105,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="wrapper">
+    <div className='wrapper'>
       <AnimatePresence>
         {showAlert && (
           <Alert setShowAlert={setShowAlert}>
-            <p className="text-center">
+            <p className='text-center'>
               You have already logged your weight today. Come back tomorrow to
               keep tracking!
             </p>
@@ -121,18 +121,18 @@ const Dashboard = () => {
         <LoadingScreen />
       ) : (
         <>
-          <div className="py-4 mx-auto">
+          <div className='py-4 mx-auto'>
             {weightContext.profile && (
-              <h1 className="text-4xl text-center text-white">
+              <h1 className='text-4xl text-center text-white'>
                 {weightContext.weights.length > 1
                   ? "Welcome back"
                   : "Welcome to Weight Tracker"}{" "}
                 {weightContext.profile.first_name}!
               </h1>
             )}
-            <div className="grid grid-cols-2 gap-4 justify-center mt-6 sm:flex ">
-              <div className="min-w-[10rem] bg-stone-900 flex items-center p-2 rounded-xl justify-center text-green-500">
-                <h3 className="text-white text-xl">
+            <div className='grid grid-cols-2 gap-4 justify-center mt-6 sm:flex '>
+              <div className='min-w-[10rem] bg-stone-900 flex items-center p-2 rounded-xl justify-center text-green-500'>
+                <h3 className='text-white text-xl'>
                   Weight:{" "}
                   {weightContext.currentWeight != undefined &&
                     weightContext.currentWeight.toString()}
@@ -140,7 +140,7 @@ const Dashboard = () => {
               </div>
               <div
                 className={` min-w-[10rem] flex items-center justify-center py-2 px-4 rounded-xl bg-stone-900 text-green-500`}>
-                <h3 className="text-xl text-white">
+                <h3 className='text-xl text-white'>
                   Goal:{" "}
                   {weightContext.targetWeight != 0 &&
                     weightContext.targetWeight}
@@ -160,7 +160,7 @@ const Dashboard = () => {
                             </div>} */}
               </div>
               <button
-                className="col-span-2 text-lg text-white font-semibold bg-green-500 py-2 px-6 rounded-md focus:outline-none "
+                className='col-span-2 text-lg text-white font-semibold bg-green-500 py-2 px-6 rounded-md focus:outline-none '
                 onClick={handleModalOpen}>
                 {" "}
                 Log Your Weight
@@ -175,9 +175,9 @@ const Dashboard = () => {
               weights={weightContext.weights}
               setWeights={weightContext.setWeights}></WeightForm>
           </Modal>
-          <div className="min-w-screen max-w-full flex flex-col items-center mt-1 lg:flex-row lg:w-full">
-            <div className="w-full w-min-[16rem] sm:mt-4">
-              <h2 className="text-white text-center">
+          <div className='min-w-screen max-w-full flex flex-col items-center mt-1 lg:flex-row lg:w-full'>
+            <div className='w-full w-min-[16rem] sm:mt-4'>
+              <h2 className='text-white text-center'>
                 Your weight over the past {weightContext.numberOfWeightDays}
                 {weightContext.weights.length > 1 ? (
                   <span> days</span>
@@ -186,7 +186,7 @@ const Dashboard = () => {
                 )}
               </h2>
 
-              <div className="w-full">
+              <div className='w-full'>
                 <Line
                   data={data}
                   width={400}
