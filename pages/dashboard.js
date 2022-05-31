@@ -18,11 +18,11 @@ import {
   Tooltip,
 } from "chart.js";
 
-import WeightForm from "./components/forms/weight-form";
-import Modal from "./components/modal";
-import Alert from "./components/alert";
-import LoadingScreen from "./components/loading-screen";
-import WeightHistory from "./components/dashboard/weight-history";
+import WeightForm from "../src/components/forms/weight-form";
+import Modal from "../src/components/modal";
+import Alert from "../src/components/alert";
+import LoadingScreen from "../src/components/loading-screen";
+import WeightHistory from "../src/components/dashboard/weight-history";
 
 ChartJS.register(
   LineElement,
@@ -43,7 +43,7 @@ const Dashboard = () => {
   const weightContext = useContext(WeightContext);
 
   const handleModalOpen = () => {
-    if (postedToday) {
+    if (weightContext.postedToday) {
       if (showAlert) setShowAlert(false);
       setShowAlert(true);
     } else {

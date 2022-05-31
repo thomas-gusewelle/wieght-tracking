@@ -10,8 +10,8 @@ import { FiChevronDown } from "react-icons/fi";
 import { GiStairsGoal } from "react-icons/gi";
 
 import { IoScale } from "react-icons/io5";
-import TestimonalSlider from "./components/index/testimonal-slider";
-import Accordian from "./components/accordian";
+import TestimonalSlider from "../src/components/index/testimonal-slider";
+import Accordian from "../src/components/accordian";
 
 const Index = () => {
   const router = useRouter();

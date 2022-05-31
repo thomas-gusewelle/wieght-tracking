@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from "react";
 
 import { WeightContext } from "../src/providers/weight-context";
 
-import WeightHistory from "./components/dashboard/weight-history";
+import WeightHistory from "../src/components/dashboard/weight-history";
 import { CircularProgress } from "@mui/material";
 
 const History = () => {
