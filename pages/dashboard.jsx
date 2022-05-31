@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
-import { WeightContext } from "./components/providers/weight-context";
+import { WeightContext } from "../src/providers/weight-context";
 
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -37,130 +37,10 @@ ChartJS.register(
 const Dashboard = () => {
   const router = useRouter();
 
-  //const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const weightContext = useContext(WeightContext);
-
-  // const [profile, setProfile] = useState({});
-  // const [postedToday, setPostedToday] = useState(false);
-  // const [userData, setUserData] = useState([]);
-
-  // //const [showTargetLine, setShowTargetLine] = useState(false);
-
-  // const [labels, setLabels] = useState([]);
-  // const [weights, setWeights] = useState([]);
-  // const [lossPercentage, setLossPercentage] = useState(0);
-  // const [currentWeight, setCurrentWeight] = useState(0);
-  // const [targetWeight, setTargetWeight] = useState(0);
-  // const [numberOfWeightDays, setNumberOfWeightDays] = useState(1);
-
-  // const userWeights = [];
-
-  // useEffect(() => {
-  //   getUserProfile();
-  // }, []);
-
-  // const getUserProfile = async () => {
-  //   if (supabase.auth.user() === null) {
-  //     router.push("/signin");
-  //     return;
-  //   }
-  //   const userId = supabase.auth.user().id;
-  //   const user = await supabase.from("profile").select().eq("id", userId);
-  //   setProfile(user.data[0]);
-  // };
-
-  // useEffect(() => {
-  //   if (profile != undefined) {
-  //     setTargetWeight(profile.target_weight);
-  //     getUserWeights();
-  //   }
-  // }, [profile]);
-
-  // const getUserWeights = async () => {
-  //   const labels = [];
-
-  //   const { data, error } = await supabase
-  //     .from("weight")
-  //     .select()
-  //     .eq("user_id", supabase.auth.user().id);
-
-  //   data = sortByDate(data);
-
-  //   setUserData(data);
-  //   let mostRecentPost = data.slice(-1);
-  //   getPostedToday(mostRecentPost);
-
-  //   data.forEach((log) => {
-  //     let singlePostDate = new Date(log.created_at);
-  //     labels.push(singlePostDate.getDate());
-  //     userWeights.push(log.weight);
-  //   });
-
-  //   getUserPercentage(userWeights);
-  //   getDaysPast(data);
-
-  //   setLabels(labels);
-  //   setWeights(userWeights);
-
-  //   setIsLoading(false);
-  // };
-
-  // const sortByDate = (data) => {
-  //   data = data.sort((a, b) => {
-  //     var firstTime = new Date(a.created_at);
-  //     var lastTime = new Date(b.created_at);
-  //     return firstTime - lastTime;
-  //   });
-  //   return data;
-  // };
-
-  // const getPostedToday = async (post) => {
-  //   const postDate = new Date(post[0].created_at);
-  //   const todayDate = new Date();
-  //   if (
-  //     postDate.getDate() === todayDate.getDate() &&
-  //     postDate.getMonth() === todayDate.getMonth() &&
-  //     postDate.getFullYear() === todayDate.getFullYear()
-  //   ) {
-  //     setPostedToday(true);
-  //   } else {
-  //     setPostedToday(false);
-  //   }
-  // };
-
-  // const getDaysPast = (_userWeights) => {
-  //   const firstPost = new Date(_userWeights[0].created_at);
-  //   const [lastPost] = _userWeights.slice(-1);
-  //   lastPost = new Date(lastPost.created_at);
-
-  //   const firstDate = new Date(
-  //     firstPost.getFullYear(),
-  //     firstPost.getMonth(),
-  //     firstPost.getDate()
-  //   );
-  //   const lastDate = new Date(
-  //     lastPost.getFullYear(),
-  //     lastPost.getMonth(),
-  //     lastPost.getDate()
-  //   );
-
-  //   const differenceInTime = lastDate - firstDate;
-  //   const numberOfDays = differenceInTime / (1000 * 3600 * 24);
-
-  //   setNumberOfWeightDays(numberOfDays);
-  // };
-
-  // const getUserPercentage = (_weights) => {
-  //   let [lastWeight] = _weights.slice(-1);
-  //   const userPercentage = parseInt(
-  //     100 - (profile.target_weight / lastWeight) * 100
-  //   );
-  //   setLossPercentage(userPercentage);
-  //   setCurrentWeight(lastWeight);
-  // };
 
   const handleModalOpen = () => {
     if (postedToday) {
@@ -259,8 +139,7 @@ const Dashboard = () => {
                 </h3>
               </div>
               <div
-                className={` min-w-[10rem] flex items-center justify-center py-2 px-4 rounded-xl bg-stone-900 text-green-500`}
-              >
+                className={` min-w-[10rem] flex items-center justify-center py-2 px-4 rounded-xl bg-stone-900 text-green-500`}>
                 <h3 className="text-xl text-white">
                   Goal:{" "}
                   {weightContext.targetWeight != 0 &&
@@ -282,8 +161,7 @@ const Dashboard = () => {
               </div>
               <button
                 className="col-span-2 text-lg text-white font-semibold bg-green-500 py-2 px-6 rounded-md focus:outline-none "
-                onClick={handleModalOpen}
-              >
+                onClick={handleModalOpen}>
                 {" "}
                 Log Your Weight
               </button>
@@ -295,8 +173,7 @@ const Dashboard = () => {
               setPostedToday={weightContext.setPostedToday}
               getUserWeights={weightContext.getUserWeights}
               weights={weightContext.weights}
-              setWeights={weightContext.setWeights}
-            ></WeightForm>
+              setWeights={weightContext.setWeights}></WeightForm>
           </Modal>
           <div className="min-w-screen max-w-full flex flex-col items-center mt-1 lg:flex-row lg:w-full">
             <div className="w-full w-min-[16rem] sm:mt-4">
@@ -336,8 +213,7 @@ const Dashboard = () => {
                       //     ]
                       // }
                     },
-                  }}
-                ></Line>
+                  }}></Line>
               </div>
             </div>
           </div>

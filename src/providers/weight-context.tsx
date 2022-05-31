@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../../utils/supabaseClient";
-import { Profile } from "./interfaces/profile";
+import { Profile } from "../interfaces/profile";
 
 export const WeightContext = createContext({});
 

@@ -23,23 +23,16 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta
-          name="keywords"
-          content="weightloss, weight, tracking, free, goals, stories">
-          {" "}
-        </meta>{" "}
+          name='keywords'
+          content='weightloss, weight, tracking, free, goals, stories'></meta>
         <meta
-          name="description"
-          content="Lossize. Simple and easy weight tracking.">
-          {" "}
-        </meta>{" "}
-        <link rel="shortcut icon" href="images/Asset 2.png">
-          {" "}
-        </link>{" "}
-      </Head>{" "}
+          name='description'
+          content='Lossize. Simple and easy weight tracking.'></meta>
+        <link rel='shortcut icon' href='images/Asset 2.png'></link>
+      </Head>
       <WeightContextProvider>
-        {" "}
-        {user && <Navbar> </Navbar>} <Component {...pageProps} />{" "}
-      </WeightContextProvider>{" "}
+        {user && <Navbar> </Navbar>} <Component {...pageProps} />
+      </WeightContextProvider>
     </>
   );
 }
