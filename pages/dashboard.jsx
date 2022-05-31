@@ -43,7 +43,7 @@ const Dashboard = () => {
   const weightContext = useContext(WeightContext);
 
   const handleModalOpen = () => {
-    if (postedToday) {
+    if (weightContext.postedToday) {
       if (showAlert) setShowAlert(false);
       setShowAlert(true);
     } else {
