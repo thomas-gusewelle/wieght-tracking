@@ -11,20 +11,6 @@ const History = () => {
   const router = useRouter();
   const weightContext = useContext(WeightContext);
 
-  const [sortReverse, setSortReverse] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const sortDataReverse = () => {
-  //     const reversedData = weightContext.userData.reverse();
-  //     console.log("reverse");
-  //     console.log(reversedData);
-  //     setSortReverse(reversedData);
-  //     setIsLoading(false);
-  //   };
-  //   sortDataReverse();
-  // }, []);
-
   return (
     <div className='wrapper'>
       {weightContext.isLoading ? (
