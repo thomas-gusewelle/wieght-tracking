@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 const Alert = ({ children, setShowAlert, showAlert }) => {
-  // setTimeout(() => {
-  //   setShowAlert(false);
-  // }, 3500);
+  setTimeout(() => {
+    setShowAlert(false);
+  }, 3500);
 
   return (
     <motion.div
