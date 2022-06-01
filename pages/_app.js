@@ -5,7 +5,7 @@ import Head from "next/head";
 
 import "../styles/globals.css";
 import { supabase } from "../utils/supabaseClient";
-import Navbar from "./components/navbar";
+import Navbar from "../src/components/navbar";
 import { WeightContextProvider } from "../src/providers/weight-context";
 
 function MyApp({ Component, pageProps }) {

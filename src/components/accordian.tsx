@@ -21,28 +21,25 @@ const Accordian = ({ title, body }) => {
   }, [isOpen]);
 
   return (
-    <div className="w-full mb-2">
-      <div className="w-full h-[2px] bg-stone-700 mb-2"></div>
+    <div className='w-full mb-2'>
+      <div className='w-full h-[2px] bg-stone-700 mb-2'></div>
       <div
-        className="flex justify-between items-center cursor-pointer px-4 py-2"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <h4 className="text-xl">{title}</h4>
+        className='flex justify-between items-center cursor-pointer px-4 py-2'
+        onClick={() => setIsOpen(!isOpen)}>
+        <h4 className='text-xl'>{title}</h4>
         <div
           className={`${
             !isOpen ? "" : "rotate-180"
-          } transition-all duration-500 ease-in-out`}
-        >
+          } transition-all duration-500 ease-in-out`}>
           <BiChevronDown size={25} />
         </div>
       </div>
       <div
-        id="accordianBody"
+        id='accordianBody'
         ref={accordianBody}
         className={`${
           isOpen ? "mb-6" : "mb-0"
-        } mt-2 font-thin px-4 overflow-hidden transition-all duration-500 ease-in-out`}
-      >
+        } mt-2 font-thin px-4 overflow-hidden transition-all duration-500 ease-in-out`}>
         <p>{body}</p>
       </div>
     </div>

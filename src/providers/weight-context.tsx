@@ -28,7 +28,6 @@ const WeightContextProvider = (props: any) => {
 
   const listenSession = () => {
     supabase.auth.onAuthStateChange((event, sesson) => {
-      console.log(event);
       if (event.toString() == "SIGNED_IN") {
         getUserProfile();
       }
@@ -89,14 +88,14 @@ const WeightContextProvider = (props: any) => {
       userWeights.push(log.weight);
     });
 
-    let reversedData = data.reverse();
-    setReversedUserData(reversedData);
-
     getUserPercentage(userWeights);
     getDaysPast(data);
 
     setLabels(labels);
     setWeights(userWeights);
+
+    let reversedData = data.reverse();
+    setReversedUserData(reversedData);
 
     setIsLoading(false);
   };

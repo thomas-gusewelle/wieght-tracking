@@ -22,13 +22,13 @@ const TestimonalSlider = () => {
   };
 
   return (
-    <div className="pb-6">
+    <div className='pb-6'>
       <SliderBody
         sliderSwitch={sliderSwitch}
         sliderDown={sliderDown}
         sliderUp={sliderUp}
       />
-      <div className="flex justify-center gap-3">
+      <div className='flex justify-center gap-3'>
         <button
           className={`h-3 ${
             sliderSwitch === 1 ? "w-6 bg-green-500" : "w-3 bg-white"
@@ -61,17 +61,15 @@ const SliderBody = ({
   sliderUp,
 }) => {
   return (
-    <div className="overflow-hidden relative flex items-center">
+    <div className='overflow-hidden relative flex items-center'>
       <div
         onClick={sliderDown}
-        className="absolute left-2 flex items-center justify-center p-1 cursor-pointer bg-stone-900 rounded-3xl opacity-60 hover:opacity-100 transition-all duration-200 ease-in-out md:left-12"
-      >
+        className='absolute left-2 flex items-center justify-center p-1 cursor-pointer bg-stone-900 rounded-3xl opacity-60 hover:opacity-100 transition-all duration-200 ease-in-out md:left-12'>
         <BiChevronLeft size={30} />
       </div>
       <div
         onClick={sliderUp}
-        className="absolute right-2 flex items-center justify-center p-1 cursor-pointer bg-stone-900 rounded-3xl opacity-60 hover:opacity-100 transition-all duration-200 ease-in-out md:right-12 "
-      >
+        className='absolute right-2 flex items-center justify-center p-1 cursor-pointer bg-stone-900 rounded-3xl opacity-60 hover:opacity-100 transition-all duration-200 ease-in-out md:right-12 '>
         <BiChevronRight size={30} />
       </div>
       <LayoutGroup>
@@ -83,15 +81,14 @@ const SliderBody = ({
               animate={{ x: 0, opacity: 1, display: "static" }}
               transition={{ duration: 0.2 }}
               exit={{ x: 500, opacity: 0 }}
-              className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}
-            >
+              className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}>
               {
                 <p>
                   &quot;I love how Lossize makes it so simple to see my goal and
                   how my daily progress is pushing me towards that goal!&quot;
                 </p>
               }
-              <h2 className="mt-2 text-lg text-green-500">Thomas G.</h2>
+              <h2 className='mt-2 text-lg text-green-500'>Thomas G.</h2>
             </motion.div>
           )}
           {sliderSwitch === 2 && (
@@ -101,14 +98,13 @@ const SliderBody = ({
               animate={{ x: 0, opacity: 1, display: "static" }}
               transition={{ duration: 0.2 }}
               exit={{ x: 500, opacity: 0 }}
-              className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}
-            >
+              className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}>
               <p>
                 &quot;Lossize takes all of the compleity that many health apps
                 have and makes it so simple anyone can use it!&quot;
               </p>
 
-              <h2 className="mt-2 text-lg text-green-500">George P.</h2>
+              <h2 className='mt-2 text-lg text-green-500'>George P.</h2>
             </motion.div>
           )}
           {sliderSwitch === 3 && (
@@ -118,8 +114,7 @@ const SliderBody = ({
               animate={{ x: 0, opacity: 1, display: "static" }}
               transition={{ duration: 0.2 }}
               exit={{ x: 500, opacity: 0 }}
-              className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}
-            >
+              className={`py-6 px-4 text-center max-w-sm mx-auto sm:max-w-prose`}>
               {
                 <p>
                   &quot;As someone who strugles with my weight I love how
@@ -127,7 +122,7 @@ const SliderBody = ({
                   changes in wieght over time.&quot;
                 </p>
               }
-              <h2 className="mt-2 text-lg text-green-500">Anna H.</h2>
+              <h2 className='mt-2 text-lg text-green-500'>Anna H.</h2>
             </motion.div>
           )}
         </AnimatePresence>
