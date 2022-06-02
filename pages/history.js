@@ -17,7 +17,7 @@ const History = () => {
 
   useEffect(() => {
     const handlePagination = () => {
-      let paginateList = paginate(weightContext.reversedUserData, page, 10);
+      let paginateList = paginate(weightContext.reversedUserData, page, 4);
 
       setPaginateList(paginateList);
     };
