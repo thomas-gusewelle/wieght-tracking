@@ -13,7 +13,15 @@ const PaginateButtons = ({ paginateList, page, setPage }) => {
   const iconSize = 25;
   const [pageRow, setPagerow] = useState(1);
 
-  const [pagiantePageList, setPagiantePageList] = useState<PaginateData>();
+  const [pagiantePageList, setPagiantePageList] = useState<PaginateData>({
+    page: 1,
+    per_page: 1,
+    prev_page: null,
+    next_page: null,
+    total: 1,
+    total_pages: 1,
+    data: [1],
+  });
   console.log(pagiantePageList);
 
   useEffect(() => {
@@ -49,7 +57,7 @@ const PaginateButtons = ({ paginateList, page, setPage }) => {
     if (page < firstPageInRow && pageRow != 1) {
       setPagerow(pageRow - 1);
     }
-  }, [page]);
+  }, [page, pageRow, pagiantePageList.data]);
 
   const handleDoubleBack = () => {
     if (pageRow == 1) return;

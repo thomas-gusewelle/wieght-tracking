@@ -31,20 +31,21 @@ const History = () => {
           <CircularProgress color='inherit' />
         </div>
       ) : (
-        <WeightHistory
-          data={paginateList.data}
-          getUserWeights={weightContext.getUserWeights}
-          setIsLoading={weightContext.setIsLoading}
-        />
+        <>
+          <WeightHistory
+            data={paginateList.data}
+            getUserWeights={weightContext.getUserWeights}
+            setIsLoading={weightContext.setIsLoading}
+          />
+          <div className='mt-6 mx-auto'>
+            <PaginateButtons
+              paginateList={paginateList}
+              page={page}
+              setPage={setPage}
+            />
+          </div>
+        </>
       )}
-
-      <div className='mt-6 mx-auto'>
-        <PaginateButtons
-          paginateList={paginateList}
-          page={page}
-          setPage={setPage}
-        />
-      </div>
     </div>
   );
 };
