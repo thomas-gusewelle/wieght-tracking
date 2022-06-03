@@ -22,7 +22,6 @@ const PaginateButtons = ({ paginateList, page, setPage }) => {
     total_pages: 1,
     data: [1],
   });
-  console.log(pagiantePageList);
 
   useEffect(() => {
     let pageNums = [];
@@ -65,44 +64,51 @@ const PaginateButtons = ({ paginateList, page, setPage }) => {
   };
 
   const handleDoubleForward = () => {
-    if (pageRow == paginateList.total_pages) return;
-
+    if (pageRow == pagiantePageList.total_pages) return;
     setPagerow(pageRow + 1);
   };
 
-  return (
-    <div className='flex items-center justify-center text-white mx-auto w-max'>
-      <BiChevronsLeft
-        size={iconSize}
-        onClick={handleDoubleBack}
-        className='hover:text-green-500 cursor-pointer'
-      />
+  console.log(pagiantePageList);
 
-      <BiChevronLeft
-        className='hover:text-green-500 cursor-pointer'
-        size={iconSize}
-        onClick={handleSingleBack}
-      />
-      <NumbersRow
-        paginateList={paginateList}
-        pagiantePageList={pagiantePageList}
-        page={page}
-        setPage={setPage}
-        pageRow={pageRow}
-        setPageRow={setPagerow}
-      />
-      <BiChevronRight
-        className='hover:text-green-500 cursor-pointer'
-        size={iconSize}
-        onClick={handleSingleForward}
-      />
-      <BiChevronsRight
-        className='hover:text-green-500 cursor-pointer'
-        size={iconSize}
-        onClick={handleDoubleForward}
-      />
-    </div>
-  );
+  if (pagiantePageList.total > 1) {
+    return (
+      <div className='flex items-center justify-center text-white mx-auto w-max'>
+        {pagiantePageList.total_pages > 1 && (
+          <BiChevronsLeft
+            size={iconSize}
+            onClick={handleDoubleBack}
+            className='hover:text-green-500 cursor-pointer'
+          />
+        )}
+
+        <BiChevronLeft
+          className='hover:text-green-500 cursor-pointer'
+          size={iconSize}
+          onClick={handleSingleBack}
+        />
+        <NumbersRow
+          paginateList={paginateList}
+          pagiantePageList={pagiantePageList}
+          page={page}
+          setPage={setPage}
+          pageRow={pageRow}
+          setPageRow={setPagerow}
+        />
+        <BiChevronRight
+          className='hover:text-green-500 cursor-pointer'
+          size={iconSize}
+          onClick={handleSingleForward}
+        />
+        {pagiantePageList.total_pages > 1 && (
+          <BiChevronsRight
+            className='hover:text-green-500 cursor-pointer'
+            size={iconSize}
+            onClick={handleDoubleForward}
+          />
+        )}
+      </div>
+    );
+  }
 };
 
 export default PaginateButtons;
