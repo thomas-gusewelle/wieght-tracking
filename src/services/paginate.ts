@@ -1,4 +1,4 @@
-function paginate(items: [], currentPage: number, perPageItems: number) {
+function paginate(items: any[], currentPage: number, perPageItems: number) {
   let page = currentPage || 1;
   let perPage = perPageItems || 30;
   let offset = (page - 1) * perPage;

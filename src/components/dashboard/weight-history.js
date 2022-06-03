@@ -8,7 +8,6 @@ import EditWeight from "../forms/edit-weight";
 import { CircularProgress } from "@mui/material";
 
 const WeightHistory = ({ data, getUserWeights, setIsLoading }) => {
-  console.log(data);
   //States for updating an entry
   //Weight is the entire weight object and not just the numeric value
   const [weight, setWeight] = useState(null);
