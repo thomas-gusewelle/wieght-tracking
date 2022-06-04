@@ -1,59 +1,53 @@
-import { supabase } from "../utils/supabaseClient"
-import { useRouter } from "next/router"
-import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useState, useContext, useEffect } from "react";
 
-import WeightHistory from "./components/dashboard/weight-history"
+import { WeightContext } from "../src/providers/weight-context";
+import paginate from "../src/services/paginate";
+
+import WeightHistory from "../src/components/dashboard/weight-history";
 import { CircularProgress } from "@mui/material";
+import PaginateButtons from "../src/components/pagination/paginate-buttons";
 
 const History = () => {
-    const router = useRouter();
-    
+  const router = useRouter();
+  const weightContext = useContext(WeightContext);
 
-    const [userData, setUserData] = useState([]);
+  const [paginateList, setPaginateList] = useState({});
+  const [page, setPage] = useState(1);
 
-    const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const handlePagination = () => {
+      let paginateList = paginate(weightContext.reversedUserData, page, 15);
 
+      setPaginateList(paginateList);
+    };
+    handlePagination();
+  }, [weightContext.reversedUserData, page]);
 
-
-const getUserWeights = async () => {
-    const {data, error} = await supabase
-    .from('weight')
-    .select()
-    .eq('user_id', supabase.auth.user().id);
-
-    data = data.reverse();
-
-    setUserData(data);
-    setIsLoading(false);
-}
-
-useEffect(() => {
-    const user = supabase.auth.user();
-    if (!user){
-        router.push('/signin');
-    }
-
-    getUserWeights()
-},[])
-
-    return (
-        <div className="wrapper">
-            {isLoading
-            ? <div className="wrapper flex justify-center items-center text-green-500">
-
-                <CircularProgress color="inherit"/>
-            </div>
-            : <WeightHistory
-                data={userData}
-                getUserWeights={getUserWeights}
-                setIsLoading={setIsLoading}
-            />
-            }
-            {/* <button 
-            className="text-white bg-red-500"
-            onClick={() => setIsLoading(!isLoading)}>isLoading</button> */}
+  return (
+    <div className='wrapper'>
+      {weightContext.isLoading ? (
+        <div className='wrapper flex justify-center items-center text-green-500'>
+          <CircularProgress color='inherit' />
         </div>
-    )
-}
+      ) : (
+        <>
+          <WeightHistory
+            data={paginateList.data}
+            getUserWeights={weightContext.getUserWeights}
+            setIsLoading={weightContext.setIsLoading}
+          />
+          <div className='mt-6 mx-auto'>
+            <PaginateButtons
+              paginateList={paginateList}
+              page={page}
+              setPage={setPage}
+            />
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
 
-export default History
+export default History;
