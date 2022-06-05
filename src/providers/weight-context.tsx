@@ -2,8 +2,31 @@ import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../../utils/supabaseClient";
 import { Profile } from "../interfaces/profile";
+import { WeightContextStruct } from "../interfaces/weightContext";
 
-export const WeightContext = createContext({});
+export const WeightContext = createContext<WeightContextStruct>({
+  profile: {
+    first_name: "",
+    last_name: "",
+    target_weight: null,
+    weight_type: "lbs",
+    show_target_weight: false,
+  },
+  isLoading: true,
+  labels: [],
+  numberOfWeightDays: null,
+  postedToday: false,
+  reversedUserData: [
+    { id: null, created_at: null, weight: null, user_id: null },
+  ],
+  targetWeight: null,
+  userData: [{ id: null, created_at: null, weight: null, user_id: null }],
+  weights: [],
+  setPostedToday: () => {},
+  getUserWeights: () => {},
+  currentWeight: null,
+  setIsLoading: () => {},
+});
 
 const WeightContextProvider = (props: any) => {
   const router = useRouter();
