@@ -15,4 +15,5 @@ export interface WeightContextStruct {
   getUserWeights: Function;
   currentWeight: number;
   setIsLoading: Function;
+  getUserProfile: Function;
 }

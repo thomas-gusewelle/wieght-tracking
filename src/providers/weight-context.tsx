@@ -6,6 +6,7 @@ import { WeightContextStruct } from "../interfaces/weightContext";
 
 export const WeightContext = createContext<WeightContextStruct>({
   profile: {
+    id: "",
     first_name: "",
     last_name: "",
     target_weight: null,
@@ -26,6 +27,7 @@ export const WeightContext = createContext<WeightContextStruct>({
   getUserWeights: () => {},
   currentWeight: null,
   setIsLoading: () => {},
+  getUserProfile: () => {},
 });
 
 const WeightContextProvider = (props: any) => {
@@ -192,6 +194,7 @@ const WeightContextProvider = (props: any) => {
         numberOfWeightDays,
         isLoading,
         setIsLoading,
+        getUserProfile,
       }}>
       {props.children}
     </WeightContext.Provider>

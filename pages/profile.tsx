@@ -15,7 +15,7 @@ const Profile = () => {
     return (
       <>
         <Modal open={nameEdit} onClose={() => setNameEdit(false)}>
-          <NameForm />
+          <NameForm onClose={() => setNameEdit(false)} />
           <BtnModalCancel onClose={() => setNameEdit(false)} />
         </Modal>
 
