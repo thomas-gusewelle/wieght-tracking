@@ -23,20 +23,26 @@ const WeightForm = ({
     setIsValidating(false);
   };
 
-  const handleSubmit = async () => {
-    const { data, console } = await supabase
-      .from("weight")
-      .insert([{ weight: weight, user_id: supabase.auth.user().id }]);
-    setPostedToday(true);
-    onClose();
-    getUserWeights();
-  };
-
   useEffect(() => {
+    const handleSubmit = async () => {
+      const { data, console } = await supabase
+        .from("weight")
+        .insert([{ weight: weight, user_id: supabase.auth.user().id }]);
+      setPostedToday(true);
+      onClose();
+      getUserWeights();
+    };
     if (!weightError.state && !isValidating) {
       handleSubmit();
     }
-  }, [weightError, isValidating]);
+  }, [
+    weightError,
+    isValidating,
+    weight,
+    setPostedToday,
+    onClose,
+    getUserWeights,
+  ]);
 
   return (
     <div>
@@ -67,7 +73,6 @@ const WeightForm = ({
       <button
         onClick={onClose}
         className='w-full mt-4 text-lg text-white font-semibold bg-red-500 py-3 px-6 rounded-md focus:outline-none focus:ring-2'>
-        {" "}
         Cancel
       </button>
     </div>
