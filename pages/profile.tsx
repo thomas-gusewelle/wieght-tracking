@@ -9,18 +9,30 @@ import { WeightContext } from "../src/providers/weight-context";
 
 const Profile = () => {
   const weightContext = useContext(WeightContext);
-  const [nameEdit, setNameEdit] = useState(true);
+  const [nameEdit, setNameEdit] = useState(false);
+  const [emailEdit, setEmailEdit] = useState(true);
 
   if (!weightContext.isLoading) {
     return (
       <>
+        {/* Name Edit Modal */}
         <Modal open={nameEdit} onClose={() => setNameEdit(false)}>
           <NameForm onClose={() => setNameEdit(false)} />
           <BtnModalCancel onClose={() => setNameEdit(false)} />
         </Modal>
 
+        {/* Email Edit Modal */}
+        <Modal
+          open={emailEdit}
+          onClose={() => {
+            () => setEmailEdit(false);
+          }}>
+          <BtnModalCancel onClose={() => setEmailEdit(false)} />
+        </Modal>
+
         <div className='wrapper container mx-auto'>
           <SettingsSection title={"Account Settings"}>
+            {/* Name Edit Line */}
             <SettingsItem
               title={"Name"}
               description={
@@ -28,6 +40,12 @@ const Profile = () => {
                 " " +
                 weightContext.profile.last_name
               }
+              onClick={() => setNameEdit(true)}
+            />
+            {/* Email line */}
+            <SettingsItem
+              title={"Email"}
+              description={""}
               onClick={() => setNameEdit(true)}
             />
           </SettingsSection>
