@@ -106,16 +106,12 @@ const Dashboard = () => {
 
   return (
     <div className='wrapper'>
-      <AnimatePresence>
-        {showAlert && (
-          <Alert setShowAlert={setShowAlert}>
-            <p className='text-center'>
-              You have already logged your weight today. Come back tomorrow to
-              keep tracking!
-            </p>
-          </Alert>
-        )}
-      </AnimatePresence>
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert}>
+        <p className='text-center'>
+          You have already logged your weight today. Come back tomorrow to keep
+          tracking!
+        </p>
+      </Alert>
 
       {weightContext.isLoading ? (
         <LoadingScreen />
