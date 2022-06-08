@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
+import { supabase } from "../utils/supabaseClient";
 import BtnModalCancel from "../src/components/buttons/btnModalCancel";
+import EmailUpdateForm from "../src/components/forms/emailUpdateForm";
 import NameForm from "../src/components/forms/name-form";
 import Modal from "../src/components/modal";
 
@@ -22,11 +24,8 @@ const Profile = () => {
         </Modal>
 
         {/* Email Edit Modal */}
-        <Modal
-          open={emailEdit}
-          onClose={() => {
-            () => setEmailEdit(false);
-          }}>
+        <Modal open={emailEdit} onClose={() => setEmailEdit(false)}>
+          <EmailUpdateForm onClose={() => setEmailEdit(false)} />
           <BtnModalCancel onClose={() => setEmailEdit(false)} />
         </Modal>
 
@@ -46,7 +45,7 @@ const Profile = () => {
             <SettingsItem
               title={"Email"}
               description={""}
-              onClick={() => setNameEdit(true)}
+              onClick={() => setEmailEdit(true)}
             />
           </SettingsSection>
         </div>
