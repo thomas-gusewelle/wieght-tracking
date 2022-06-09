@@ -36,8 +36,7 @@ const SignUp = () => {
       email,
       password,
     });
-    console.log("this is the user role");
-    console.log(supabase.auth.user());
+
     if (error) {
       alert(JSON.stringify(error));
       return;
@@ -55,8 +54,6 @@ const SignUp = () => {
       const setFirstWeight = await supabase
         .from("weight")
         .insert([{ weight: currentWeight, user_id: user.id }]);
-
-      console.log(setFirstWeight);
 
       router.push("/dashboard");
     }

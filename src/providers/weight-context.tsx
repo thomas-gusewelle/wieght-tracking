@@ -53,6 +53,7 @@ const WeightContextProvider = (props: any) => {
 
   const listenSession = () => {
     supabase.auth.onAuthStateChange((event, sesson) => {
+      console.log(event);
       if (event.toString() == "SIGNED_IN") {
         getUserProfile();
       }
