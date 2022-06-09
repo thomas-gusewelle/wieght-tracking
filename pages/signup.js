@@ -42,21 +42,21 @@ const SignUp = () => {
       alert(JSON.stringify(error));
       return;
     } else {
-      const setProfile = await supabase
-        .from("profile")
-        .insert([
-          {
-            id: user.id,
-            first_name: firstName,
-            last_name: lastName,
-            target_weight: targetWeight,
-            weight_type: weightType,
-          },
-        ]);
+      const setProfile = await supabase.from("profile").insert([
+        {
+          id: user.id,
+          first_name: firstName,
+          last_name: lastName,
+          target_weight: targetWeight,
+          weight_type: weightType,
+        },
+      ]);
 
       const setFirstWeight = await supabase
         .from("weight")
-        .insert([{ weight: currentWeight, user: user.id }]);
+        .insert([{ weight: currentWeight, user_id: user.id }]);
+
+      console.log(setFirstWeight);
 
       router.push("/dashboard");
     }
