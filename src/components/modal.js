@@ -5,7 +5,7 @@ const Modal = ({
   onClose,
   children,
   showAlert = false,
-  setShowAlert = {},
+  setShowAlert = null,
   alertMessage = "",
 }) => {
   if (!open) return;

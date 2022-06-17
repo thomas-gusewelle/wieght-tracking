@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 const Alert = ({ children, setShowAlert, showAlert }) => {
-  setTimeout(() => {
-    setShowAlert(false);
-  }, 3500);
+  if (showAlert == true) {
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3500);
+  }
 
   return (
     <AnimatePresence>
