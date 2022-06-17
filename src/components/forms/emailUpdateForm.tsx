@@ -5,7 +5,7 @@ import BtnModalSubmit from "../buttons/btnModalSubmit";
 import FormEmailItem from "./formEmailItem";
 import Alert from "../alert";
 
-const EmailUpdateForm = ({ onClose }) => {
+const EmailUpdateForm = ({ onClose, setShowAlert, setAlertMessage }) => {
   const [email, setEmail] = useState("");
   const [emailConfrim, setEmailConfrim] = useState("");
   const [emailError, setEmailError] = useState({ state: false, message: "" });
@@ -13,8 +13,6 @@ const EmailUpdateForm = ({ onClose }) => {
     state: false,
     message: "",
   });
-  const [showAlert, setShowAlert] = useState(true);
-  const [alertMessage, setAlertMessage] = useState("");
 
   const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -25,7 +23,8 @@ const EmailUpdateForm = ({ onClose }) => {
     const { user, error } = await supabase.auth.update({ email: email });
     if (error) {
       console.log(error.message);
-      alert(error.message);
+      setAlertMessage(error.message);
+      setShowAlert(true);
       return;
     }
     onClose();
@@ -53,9 +52,6 @@ const EmailUpdateForm = ({ onClose }) => {
 
   return (
     <>
-      <Alert setShowAlert={setShowAlert} showAlert={showAlert}>
-        <p></p>
-      </Alert>
       <form onSubmit={handleSubmit} className='flex flex-col'>
         <FormEmailItem
           id={"email"}
