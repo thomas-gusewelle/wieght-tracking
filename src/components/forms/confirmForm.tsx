@@ -1,5 +1,4 @@
 import BtnConfirm from "../buttons/btnConfirm";
-import BtnModalSubmit from "../buttons/btnModalSubmit";
 
 const ConfirmForm = ({ onConfirm, message, btnText }) => {
   return (

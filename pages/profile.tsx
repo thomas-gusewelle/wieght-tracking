@@ -9,11 +9,13 @@ import SettingsItem from "../src/components/profile/settings-item";
 import SettingsSection from "../src/components/profile/settings-section";
 import { WeightContext } from "../src/providers/weight-context";
 import { User } from "@supabase/supabase-js";
+import { WeightTypeChange } from "../src/components/forms/weightTypeChange";
 
 const Profile = () => {
   const weightContext = useContext(WeightContext);
   const [nameEdit, setNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
+  const [weightTypeEdit, setWeightTypeEdit] = useState(false);
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -50,9 +52,10 @@ const Profile = () => {
         </Modal>
 
         {/* Weight Type Modal */}
-        {/* <Modal open={undefined} onClose={undefined} children={undefined}>
-          
-        </Modal> */}
+        <Modal open={weightTypeEdit} onClose={() => setWeightTypeEdit(false)}>
+          <WeightTypeChange onClose={() => setWeightTypeEdit(false)} />
+          <BtnModalCancel onClose={() => setWeightTypeEdit(false)} />
+        </Modal>
 
         <div className='wrapper container mx-auto'>
           <SettingsSection title={"Account Settings"}>
@@ -75,7 +78,7 @@ const Profile = () => {
             <SettingsItem
               title={"Weight Type"}
               description={weightContext.profile.weight_type}
-              onClick={undefined}
+              onClick={() => setWeightTypeEdit(true)}
             />
           </SettingsSection>
         </div>
