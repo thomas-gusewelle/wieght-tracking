@@ -18,10 +18,24 @@ export const WeightContext = createContext<WeightContextStruct>({
   numberOfWeightDays: null,
   postedToday: false,
   reversedUserData: [
-    { id: null, created_at: null, weight: null, user_id: null },
+    {
+      id: null,
+      created_at: null,
+      weight: null,
+      user_id: null,
+      weight_type: null,
+    },
   ],
   targetWeight: null,
-  userData: [{ id: null, created_at: null, weight: null, user_id: null }],
+  userData: [
+    {
+      id: null,
+      created_at: null,
+      weight: null,
+      user_id: null,
+      weight_type: null,
+    },
+  ],
   weights: [],
   setPostedToday: () => {},
   getUserWeights: () => {},
