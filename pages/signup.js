@@ -53,7 +53,9 @@ const SignUp = () => {
 
       const setFirstWeight = await supabase
         .from("weight")
-        .insert([{ weight: currentWeight, user_id: user.id }]);
+        .insert([
+          { weight: currentWeight, user_id: user.id, weight_type: weightType },
+        ]);
 
       router.push("/dashboard");
     }
