@@ -15,6 +15,7 @@ const Profile = () => {
   const weightContext = useContext(WeightContext);
   const [nameEdit, setNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
+  const [weightGoal, setWeightGoal] = useState(true);
   const [weightTypeEdit, setWeightTypeEdit] = useState(false);
 
   const [showAlert, setShowAlert] = useState(false);
@@ -51,6 +52,8 @@ const Profile = () => {
           <BtnModalCancel onClose={() => setEmailEdit(false)} />
         </Modal>
 
+        <Modal open={weightGoal} onClose={() => setWeightGoal(false)}></Modal>
+
         {/* Weight Type Modal */}
         <Modal open={weightTypeEdit} onClose={() => setWeightTypeEdit(false)}>
           <WeightTypeChange onClose={() => setWeightTypeEdit(false)} />
@@ -75,6 +78,13 @@ const Profile = () => {
               description={email}
               onClick={() => setEmailEdit(true)}
             />
+            {/* Weight Goal */}
+            <SettingsItem
+              title={"Weight Goal"}
+              description={weightContext.profile.target_weight}
+              onClick={() => setWeightGoal(true)}
+            />
+            {/* Weight Type Line */}
             <SettingsItem
               title={"Weight Type"}
               description={weightContext.profile.weight_type}
