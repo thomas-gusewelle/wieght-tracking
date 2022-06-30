@@ -11,6 +11,7 @@ import { WeightContext } from "../src/providers/weight-context";
 import { User } from "@supabase/supabase-js";
 import { WeightTypeChange } from "../src/components/forms/weightTypeChange";
 import { WeightGoalForm } from "../src/components/forms/weightGoal";
+import { userInfo } from "os";
 
 const Profile = () => {
   const weightContext = useContext(WeightContext);
@@ -26,6 +27,7 @@ const Profile = () => {
 
   useEffect(() => {
     const user: User = supabase.auth.user();
+    console.log(user);
     setEmail(user.email);
   }, []);
 
@@ -82,6 +84,15 @@ const Profile = () => {
               description={email}
               onClick={() => setEmailEdit(true)}
             />
+
+            {/* Password Line */}
+        {
+          <SettingsItem
+          title={"Password"}
+          description={"**********"}
+          onClick={undefined}
+        />}
+
             {/* Weight Goal */}
             <SettingsItem
               title={"Weight Goal"}
