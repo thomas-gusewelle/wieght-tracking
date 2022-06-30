@@ -12,11 +12,13 @@ import { User } from "@supabase/supabase-js";
 import { WeightTypeChange } from "../src/components/forms/weightTypeChange";
 import { WeightGoalForm } from "../src/components/forms/weightGoal";
 import { userInfo } from "os";
+import PasswordEditForm from "../src/components/forms/passwordUpdate";
 
-const Profile = () => {
+const Settings = () => {
   const weightContext = useContext(WeightContext);
   const [nameEdit, setNameEdit] = useState(false);
   const [emailEdit, setEmailEdit] = useState(false);
+  const [passwordEdit, setPasswordEdit] = useState(false);
   const [weightGoal, setWeightGoal] = useState(false);
   const [weightTypeEdit, setWeightTypeEdit] = useState(false);
 
@@ -55,6 +57,12 @@ const Profile = () => {
           <BtnModalCancel onClose={() => setEmailEdit(false)} />
         </Modal>
 
+        {/* Password Edit Modal */}
+        <Modal open={passwordEdit} onClose={() => setPasswordEdit(false)}>
+          <PasswordEditForm onClose={() => setPasswordEdit(false)} />
+          <BtnModalCancel onClose={() => setPasswordEdit(false)} />
+        </Modal>
+
         {/* Weight Goal Modal */}
         <Modal open={weightGoal} onClose={() => setWeightGoal(false)}>
           <WeightGoalForm onClose={() => setWeightGoal(false)}></WeightGoalForm>
@@ -86,13 +94,13 @@ const Profile = () => {
             />
 
             {/* Password Line */}
-        {
-          <SettingsItem
-          title={"Password"}
-          description={"**********"}
-          onClick={undefined}
-        />}
-
+            <SettingsItem
+              title={"Password"}
+              description={"**********"}
+              onClick={() => setPasswordEdit(true)}
+            />
+          </SettingsSection>
+          <SettingsSection title={"Weight Settings"}>
             {/* Weight Goal */}
             <SettingsItem
               title={"Weight Goal"}
@@ -112,4 +120,4 @@ const Profile = () => {
   }
 };
 
-export default Profile;
+export default Settings;

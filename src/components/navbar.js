@@ -57,11 +57,11 @@ const Navbar = () => {
               History
             </a>
           </Link>
-          <Link href='/profile'>
+          <Link href='/settings'>
             <a
               onClick={() => setShowMobileNav(false)}
               className='hover:text-green-500 cursor-pointer'>
-              Profile
+              Settings
             </a>
           </Link>
           <button
