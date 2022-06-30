@@ -57,6 +57,13 @@ const Navbar = () => {
               History
             </a>
           </Link>
+          <Link href='/settings'>
+            <a
+              onClick={() => setShowMobileNav(false)}
+              className='hover:text-green-500 cursor-pointer'>
+              Settings
+            </a>
+          </Link>
           <button
             onClick={logout}
             className='bg-green-500 px-2 py-1 rounded-md focus:outline-none focus:ring-2 hover:bg-green-600'>

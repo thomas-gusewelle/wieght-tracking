@@ -2,8 +2,47 @@ import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../../utils/supabaseClient";
 import { Profile } from "../interfaces/profile";
+import { WeightContextStruct } from "../interfaces/weightContext";
 
-export const WeightContext = createContext({});
+export const WeightContext = createContext<WeightContextStruct>({
+  profile: {
+    id: "",
+    first_name: "",
+    last_name: "",
+    target_weight: null,
+    weight_type: "lbs",
+    show_target_weight: false,
+  },
+  isLoading: true,
+  labels: [],
+  numberOfWeightDays: null,
+  postedToday: false,
+  reversedUserData: [
+    {
+      id: null,
+      created_at: null,
+      weight: null,
+      user_id: null,
+      weight_type: null,
+    },
+  ],
+  targetWeight: null,
+  userData: [
+    {
+      id: null,
+      created_at: null,
+      weight: null,
+      user_id: null,
+      weight_type: null,
+    },
+  ],
+  weights: [],
+  setPostedToday: () => {},
+  getUserWeights: () => {},
+  currentWeight: null,
+  setIsLoading: () => {},
+  getUserProfile: () => {},
+});
 
 const WeightContextProvider = (props: any) => {
   const router = useRouter();
@@ -28,6 +67,7 @@ const WeightContextProvider = (props: any) => {
 
   const listenSession = () => {
     supabase.auth.onAuthStateChange((event, sesson) => {
+      console.log(event);
       if (event.toString() == "SIGNED_IN") {
         getUserProfile();
       }
@@ -169,6 +209,7 @@ const WeightContextProvider = (props: any) => {
         numberOfWeightDays,
         isLoading,
         setIsLoading,
+        getUserProfile,
       }}>
       {props.children}
     </WeightContext.Provider>

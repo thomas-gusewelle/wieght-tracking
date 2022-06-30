@@ -68,8 +68,6 @@ const PaginateButtons = ({ paginateList, page, setPage }) => {
     setPagerow(pageRow + 1);
   };
 
-  console.log(pagiantePageList);
-
   if (pagiantePageList.total > 1) {
     return (
       <div className='flex items-center justify-center text-white mx-auto w-max'>

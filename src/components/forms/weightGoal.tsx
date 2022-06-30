@@ -1,55 +1,53 @@
-import { useEffect, useState } from "react";
+import { useState, useContext, FormEvent, useEffect } from "react";
+import { WeightContext } from "../../providers/weight-context";
 import { supabase } from "../../../utils/supabaseClient";
 
-const EditWeight = ({
-  onClose,
-  weightObject,
-  getUserWeights,
-  setIsLoading,
-}) => {
-  const [weight, setWeight] = useState(0);
+export const WeightGoalForm = ({ onClose }) => {
+  const weightContext = useContext(WeightContext);
+  const [weight, setWeight] = useState<any>(
+    weightContext.profile.target_weight
+  );
   const [weightError, setWeightError] = useState({ state: false, message: "" });
-  const [isValidating, setIsValidating] = useState(true);
 
-  useEffect(() => {
-    setWeight(weightObject.weight);
-  }, []);
-
-  const handlePreSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(weight);
 
-    if (weight == 0 || weight === undefined || weight === null) {
-      setWeightError({ state: true, message: "Please Enter Your Weight" });
-    } else {
-      setWeightError({ state: false });
+    if (weight == weightContext.profile.target_weight) {
+      onClose();
+      return;
     }
-    setIsValidating(false);
-  };
 
-  const handleSubmit = async () => {
-    setIsLoading(true);
+    if (weight == 0 || isNaN(weight)) {
+      setWeightError({ state: true, message: "Please Enter A Target Weight" });
+      return;
+    } else {
+      setWeightError({ state: false, message: "" });
+    }
+
     const { data, error } = await supabase
-      .from("weight")
-      .update({ weight: weight })
-      .eq("id", weightObject.id);
-    console.log(error);
+      .from("profile")
+      .update({ target_weight: weight })
+      .eq("id", weightContext.profile.id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    weightContext.getUserProfile();
     onClose();
-    getUserWeights();
-    setIsLoading(false);
   };
 
   useEffect(() => {
-    if (!weightError.state && !isValidating) {
-      handleSubmit();
-    }
-  }, [weightError, isValidating]);
+    console.log(weight);
+  }, [weight]);
 
   return (
     <div>
       <h3 className='text-center text-white text-3xl mb-4'>
         {"Update Your Weight"}
       </h3>
-      <form className='flex flex-col' onSubmit={handlePreSubmit}>
+      <form className='flex flex-col' onSubmit={handleSubmit}>
         <label className='text-gray-200'>Weight</label>
         <input
           className={`py-2 px-4 rounded-md focus:outline-none focus:ring-2 ${
@@ -59,7 +57,7 @@ const EditWeight = ({
           id='weight'
           step={0.01}
           value={weight}
-          onChange={(e) => setWeight(e.target.value)}
+          onChange={(e) => setWeight(parseFloat(e.target.value))}
         />
         <span className='text-red-500'>
           {weightError.state && weightError.message}
@@ -79,5 +77,3 @@ const EditWeight = ({
     </div>
   );
 };
-
-export default EditWeight;

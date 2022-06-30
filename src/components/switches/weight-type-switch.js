@@ -1,21 +1,33 @@
 import { FormControlLabel, styled, Switch } from "@mui/material";
 import { useState, useEffect } from "react";
 
-const WeightTypeSwitch = ({ setWeightType }) => {
+const WeightTypeSwitch = ({ setWeightType, weightType = "lbs" }) => {
+  // false means LBS; true means KGS
   const [switchState, setSwitchState] = useState(false);
 
   const hadleChange = (e) => {
     setSwitchState(e.target.checked);
   };
 
-  const setLbs = () => {
-    setWeightType("lbs");
-  };
-  const setKgs = () => {
-    setWeightType("kgs");
-  };
+  useEffect(() => {
+    switch (weightType) {
+      case "lbs":
+        setSwitchState(false);
+        break;
+      case "kgs":
+        setSwitchState(true);
+        break;
+    }
+  }, []);
 
   useEffect(() => {
+    const setLbs = () => {
+      setWeightType("lbs");
+    };
+    const setKgs = () => {
+      setWeightType("kgs");
+    };
+
     switch (switchState) {
       case false:
         setLbs();
@@ -24,7 +36,7 @@ const WeightTypeSwitch = ({ setWeightType }) => {
         setKgs();
         break;
     }
-  }, [switchState]);
+  }, [setWeightType, switchState]);
 
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
