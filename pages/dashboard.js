@@ -1,44 +1,21 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { supabase } from "../utils/supabaseClient";
+
 import { WeightContext } from "../src/providers/weight-context";
-
-import { AnimatePresence, motion } from "framer-motion";
-
-import { Line } from "react-chartjs-2";
-import annotationPlugin from "chartjs-plugin-annotation";
-import {
-  Chart as ChartJS,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  CategoryScale,
-  Tooltip,
-} from "chart.js";
 
 import WeightForm from "../src/components/forms/weight-form";
 import Modal from "../src/components/modal";
 import Alert from "../src/components/alert";
 import LoadingScreen from "../src/components/loading-screen";
-import WeightHistory from "../src/components/dashboard/weight-history";
-
-ChartJS.register(
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  CategoryScale,
-  Tooltip,
-  annotationPlugin
-);
+import { LineGraph, LineGraphTarget } from "../src/components/graphs/lineGraph";
 
 const Dashboard = () => {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [test, setTest] = useState(true);
 
   const weightContext = useContext(WeightContext);
 
@@ -56,53 +33,6 @@ const Dashboard = () => {
   };
 
   //const targetWeightArrat =
-
-  const data = {
-    labels: weightContext.labels,
-    datasets: [
-      {
-        label: "Weight",
-        // fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "#48bb78",
-        borderCapStyle: "butt",
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: "miter",
-        pointBorderColor: "rgba(75,192,192,1)",
-        pointBackgroundColor: "#48bb78",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "#48bb78",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 5,
-        pointHitRadius: 10,
-        data: weightContext.weights,
-      },
-      //   {
-      //       label: "Target",
-      //       lineTension: 0.1,
-      //       backgroundColor: 'rgba(75,192,192,0.4)',
-      //       borderColor: '#48bb78',
-      //       borderCapStyle: 'butt',
-      //       borderDash: [],
-      //       borderDashOffset: 0.0,
-      //       borderJoinStyle: 'miter',
-      //       pointBorderColor: 'rgba(75,192,192,1)',
-      //       pointBackgroundColor: '#48bb78',
-      //       pointBorderWidth: 1,
-      //       pointHoverRadius: 5,
-      //       pointHoverBackgroundColor: '#48bb78',
-      //       pointHoverBorderColor: 'rgba(220,220,220,1)',
-      //       pointHoverBorderWidth: 2,
-      //       pointRadius: 5,
-      //       pointHitRadius: 10,
-      //       data: [targetWeight]
-      //   },
-    ],
-  };
 
   return (
     <div className='wrapper'>
@@ -183,33 +113,11 @@ const Dashboard = () => {
               </h2>
 
               <div className='w-full'>
-                <Line
-                  data={data}
-                  width={400}
-                  height={400}
-                  options={{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                      y: {},
-                    },
-                    plugins: {
-                      // annotation: {
-                      //     annotations: [
-                      //         {
-                      //             type: "line",
-                      //             yMax:targetWeight,
-                      //             yMin:targetWeight,
-                      //             borderColor: "red",
-                      //             label: {
-                      //                 enabled: true,
-                      //                 content: "Target Weight"
-                      //             }
-                      //         }
-                      //     ]
-                      // }
-                    },
-                  }}></Line>
+                {weightContext.profile.show_target_weight ? (
+                  <LineGraphTarget />
+                ) : (
+                  <LineGraph />
+                )}
               </div>
             </div>
           </div>

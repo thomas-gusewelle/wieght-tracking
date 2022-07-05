@@ -13,6 +13,7 @@ import { WeightTypeChange } from "../src/components/forms/weightTypeChange";
 import { WeightGoalForm } from "../src/components/forms/weightGoal";
 import { userInfo } from "os";
 import PasswordEditForm from "../src/components/forms/passwordUpdate";
+import { ShowTargetForm } from "../src/components/forms/showTargetForm";
 
 const Settings = () => {
   const weightContext = useContext(WeightContext);
@@ -21,6 +22,7 @@ const Settings = () => {
   const [passwordEdit, setPasswordEdit] = useState(false);
   const [weightGoal, setWeightGoal] = useState(false);
   const [weightTypeEdit, setWeightTypeEdit] = useState(false);
+  const [showTarget, setShowTarget] = useState(false);
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -74,6 +76,11 @@ const Settings = () => {
           <BtnModalCancel onClose={() => setWeightTypeEdit(false)} />
         </Modal>
 
+        <Modal open={showTarget} onClose={() => setShowTarget(false)}>
+          <ShowTargetForm onClose={() => setShowTarget(false)} />
+          <BtnModalCancel onClose={() => setShowTarget(false)} />
+        </Modal>
+
         <div className='wrapper container mx-auto'>
           <SettingsSection title={"Account Settings"}>
             {/* Name Edit Line */}
@@ -112,6 +119,14 @@ const Settings = () => {
               title={"Weight Type"}
               description={weightContext.profile.weight_type}
               onClick={() => setWeightTypeEdit(true)}
+            />
+            {/* Show Target on Graph */}
+            <SettingsItem
+              title={"Show Target"}
+              description={
+                weightContext.profile.show_target_weight ? "Yes" : "No"
+              }
+              onClick={() => setShowTarget(true)}
             />
           </SettingsSection>
         </div>

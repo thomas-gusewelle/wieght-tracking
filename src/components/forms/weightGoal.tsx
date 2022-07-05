@@ -11,7 +11,6 @@ export const WeightGoalForm = ({ onClose }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(weight);
 
     if (weight == weightContext.profile.target_weight) {
       onClose();
@@ -37,10 +36,6 @@ export const WeightGoalForm = ({ onClose }) => {
     weightContext.getUserProfile();
     onClose();
   };
-
-  useEffect(() => {
-    console.log(weight);
-  }, [weight]);
 
   return (
     <div>
