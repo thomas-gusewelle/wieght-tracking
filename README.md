@@ -4,4 +4,4 @@ todo
 - [ ] add feature to filter graph on time period. i.e. 30 days, 3 months, 1 year, all time
 - [ ] add forgot password flow
 - [ ] delete account flow
-- [ ] add setting to choose to show goal on graph or not
+- [x] add setting to choose to show goal on graph or not
