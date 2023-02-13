@@ -104,7 +104,7 @@ const Dashboard = () => {
           <div className='min-w-screen max-w-full flex flex-col items-center mt-1 lg:flex-row lg:w-full'>
             <div className='w-full w-min-[16rem] sm:mt-4'>
               <h2 className='text-white text-center'>
-                Your weight over the past {weightContext.numberOfWeightDays}
+                Your weight over the past {Math.floor(weightContext.numberOfWeightDays)}
                 {weightContext.weights.length > 1 ? (
                   <span> days</span>
                 ) : (
